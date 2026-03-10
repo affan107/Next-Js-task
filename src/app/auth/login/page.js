@@ -9,25 +9,26 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
 export default function SignInPage() {
   return (
-    <div className=" font-inter min-h-screen flex items-center justify-center bg-[#ECEEF8]">
+    <div className="min-h-screen flex items-center justify-center bg-[#ECEEF8]">
       <div className="w-full max-w-sm px-4">
         {/* Logo above card */}
-        <div className="w-258px h-47px text-center mb-6">
+        <div className="text-center mb-6">
           <span className="text-3xl font-bold bg-gradient-to-r from-[#240EB3] to-[#24A5ED] bg-clip-text text-transparent">
             vox
           </span>
           <span className="text-3xl y font-normal text-[#9B9B9B]">works</span>
         </div>
 
-        <Card className="w-368px h-512px p-32px gap-32px rounded-2xl shadow-sm border-0">
+        <Card className="p-32px gap-32px rounded-2xl shadow-sm border-0">
           <CardHeader className="space-y-1 pb-4 pt-6 px-6">
-            <CardTitle className="text-xl font-inter fw-600 text-center text-#1E293B">
+            <CardTitle className="text-lg fw-600 text-center text-#1E293B">
               Sign in to your account
             </CardTitle>
-            <CardDescription className="font-inter fw-500 fs-12px text-center text-sm  text-slate-500">
+            <CardDescription className="text-center text-xs  text-slate-500">
               Welcome back! Please enter your details
             </CardDescription>
           </CardHeader>
@@ -67,7 +68,15 @@ export default function SignInPage() {
                   required
                 />
               </div>
-
+              <div>
+                <a
+                  class="text-slate-500 focus-visible:ring-ring inline-flex cursor-pointer items-center justify-center font-medium whitespace-nowrap transition-colors focus-visible:ring-1 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 decoration-primary underline-offset-4  text-xs  w-full text-left underline"
+                  type="button"
+                  href="/auth/reset-password"
+                >
+                  Forgot Password?
+                </a>
+              </div>
               {/* Sign in button */}
               <Button
                 type="submit"
@@ -115,12 +124,12 @@ export default function SignInPage() {
                 Sign in with Google
               </Button>
               {/* Footer */}
-              <a
-                href="#"
-                className="block w-full text-center text-sm text-slate-800 pt-1"
+              <Link
+                href="/auth/register"
+                className="block w-full text-center text-xs text-slate-800 pt-1"
               >
                 Don't have an account yet?
-              </a>
+              </Link>
             </form>
           </CardContent>
         </Card>

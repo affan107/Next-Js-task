@@ -8,13 +8,14 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function ResetPasswordPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#ECEEF8]">
       <div className="w-full max-w-sm px-4">
         {/* Logo above card */}
-        <div className="w-258px h-47px text-center mb-6">
+        <div className="text-center mb-6">
           <span className="text-3xl font-bold bg-gradient-to-r from-[#240EB3] to-[#24A5ED] bg-clip-text text-transparent">
             vox
           </span>
@@ -60,12 +61,12 @@ export default function ResetPasswordPage() {
               </Button>
 
               {/* Footer */}
-              <a
-                href="#"
-                className="block w-full text-center text-sm text-slate-800 pt-1"
+              <Link
+                href="/auth/login"
+                className="block w-full text-center text-xs text-slate-800 pt-1"
               >
                 Password recovered?{" "}
-              </a>
+              </Link>
             </form>
           </CardContent>
         </Card>
