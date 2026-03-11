@@ -1,4 +1,4 @@
-import PropertyGrid from "./properties/PropertyGrid";
+import PropertyGrid from "./liveProperty/PropertyGrid";
 import StatsGrid from "./stats/StatsGrid";
 import AvgCallDurationChart from "./analytics/Avgcalldurationchart";
 import BotUsageChart from "./analytics/Botusagechart";
