@@ -25,7 +25,6 @@ import {
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-// ─── Nav structure ────────────────────────────────────────────────────────────
 const navSections = [
   {
     label: "AI Calling",
@@ -53,35 +52,27 @@ const navSections = [
 
 const VIEW_OPTIONS = ["Sales", "Rentals", "All"];
 
-// ─── Reusable NavItem ─────────────────────────────────────────────────────────
 function NavItem({ icon: Icon, label, href, expanded, isActive }) {
   const inner = (
     <Link
       href={href}
       className={cn(
-        "flex items-center gap-3 rounded-lg transition-all duration-150 group/navitem",
+        "text-slate-800 flex items-center gap-3 rounded-lg transition-all duration-150 group/navitem",
         expanded ? "w-full px-3 py-2" : "w-9 h-9 justify-center mx-auto",
-        isActive
-          ? "bg-[#EEEDF9] text-[#4B3FD4]"
-          : "text-gray-500 hover:bg-gray-100 hover:text-gray-700",
+        isActive ? "bg-[#F4F3FF]" : "text-slate-800",
       )}
     >
       <Icon
         size={16}
         strokeWidth={isActive ? 2.2 : 1.8}
-        className={cn(
-          "shrink-0 transition-colors",
-          isActive
-            ? "text-[#4B3FD4]"
-            : "text-gray-400 group-hover/navitem:text-gray-600",
-        )}
+        className="shrink-0 text-[#4A24AB]"
       />
       {expanded && (
         <span
           className={cn(
             "text-sm leading-none whitespace-nowrap",
             isActive
-              ? "font-semibold text-[#4B3FD4]"
+              ? "font-semibold text-[#4A24AB]"
               : "font-medium text-gray-600",
           )}
         >
@@ -104,7 +95,6 @@ function NavItem({ icon: Icon, label, href, expanded, isActive }) {
   return inner;
 }
 
-// ─── Main Sidebar ─────────────────────────────────────────────────────────────
 export default function Sidebar() {
   const pathname = usePathname();
   const [expanded, setExpanded] = useState(true);
@@ -115,9 +105,9 @@ export default function Sidebar() {
     <TooltipProvider delayDuration={150}>
       <aside
         className={cn(
-          "relative flex flex-col h-screen bg-slate-200 border-r border-gray-100 shrink-0 z-20 overflow-hidden",
-          "transition-all duration-300 ease-in-out",
-          expanded ? "w-[255px]" : "w-[85px]",
+          "relative flex flex-col h-screen max-w-xs pt-5 pb-5 gap-2.5 border-r border-gray-100 bg-slate-200 shrink-0 z-20 overflow-hidden",
+          "transition-[width] duration-300 ease-in-out",
+          expanded ? "w-64" : "w-20",
         )}
       >
         <div
@@ -126,7 +116,6 @@ export default function Sidebar() {
             !expanded && "flex-col gap-2 items-center",
           )}
         >
-          {/* Logo */}
           <Link
             href="/dashboard"
             className="flex items-center gap-0.5 select-none shrink-0"
@@ -158,7 +147,7 @@ export default function Sidebar() {
             <TooltipTrigger asChild>
               <button
                 onClick={() => setExpanded((v) => !v)}
-                className="flex items-center justify-center w-7 h-7 rounded-md text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition-all duration-150 shrink-0"
+                className="flex items-center justify-center w-7 h-7 rounded-md text-slate-800  transition-all duration-150 shrink-0"
               >
                 {expanded ? (
                   <PanelLeftClose size={15} strokeWidth={1.8} />
@@ -173,14 +162,12 @@ export default function Sidebar() {
           </Tooltip>
         </div>
 
-        {/* ── Team selector ───────────────────────────────── */}
         <div
           className={cn("px-2 mb-2", !expanded && "px-2 flex justify-center")}
         >
           {expanded ? (
             <button className="flex items-center gap-2 w-full rounded-xl hover:bg-slate-300 px-2 py-1.5 transition-all group">
-              {/* Team image */}
-              <div className="w-9 h-9 rounded-xl overflow-hidden shrink-0 border border-gray-200 flex items-center justify-center">
+              <div className="w-9 h-9 rounded-xl overflow-hidden shrink-0 border  flex items-center justify-center">
                 <Image
                   src="/team.jpg"
                   alt="Team"
@@ -196,11 +183,11 @@ export default function Sidebar() {
                 <span className="text-xs font-semibold text-gray-800 leading-tight">
                   Team
                 </span>
-                <span className="text-[10px] text-gray-400 leading-tight">
+                <span className="text-[10px] text-slate-500 leading-tight">
                   Team name
                 </span>
               </div>
-              <ChevronDown size={13} className="text-gray-400 shrink-0" />
+              <ChevronDown size={13} className="text-slate-500 shrink-0" />
             </button>
           ) : (
             <div className="w-9 h-9 rounded-xl overflow-hidden shrink-0 border border-gray-200 flex items-center justify-center">
@@ -218,20 +205,19 @@ export default function Sidebar() {
           )}
         </div>
 
-        {/* ══════════════════════════════════════════════════
-            SCROLLABLE NAV
-        ══════════════════════════════════════════════════ */}
-        <nav className="flex-1 overflow-y-auto overflow-x-hidden px-2 py-1 space-y-1">
+        <nav className="flex flex-col px-2 py-1 space-y-1 overflow-y-auto overflow-x-hidden">
           {navSections.map((section, si) => (
             <div key={section.label}>
-              {/* Section label (expanded) or thin divider (collapsed) */}
-              {expanded ? (
-                <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 px-2 pt-3 pb-1 select-none">
-                  {section.label}
-                </p>
-              ) : (
-                si > 0 && <div className="w-6 h-px bg-gray-200 mx-auto my-2" />
-              )}
+              <p
+                className={cn(
+                  "uppercase text-slate-500 select-none",
+                  expanded
+                    ? "text-[10px] font-semibold tracking-widest px-2 pt-3 pb-1"
+                    : "text-[9px] font-medium text-center py-2 tracking-wide",
+                )}
+              >
+                {section.label}
+              </p>
 
               <div className="flex flex-col gap-0.5">
                 {section.items.map(({ icon, label, href }) => {
@@ -251,96 +237,127 @@ export default function Sidebar() {
               </div>
             </div>
           ))}
-        </nav>
 
-        {/* ══════════════════════════════════════════════════
-            BOTTOM — View / Admin / User
-        ══════════════════════════════════════════════════ */}
-        <div className="border-t border-gray-100 pt-3 pb-4 px-3">
-          {expanded ? (
-            <div className="flex flex-col gap-3">
-              {/* ── View toggle ── */}
-              <div className="flex flex-col gap-1.5">
-                <span className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 select-none">
+          <div className="mt-10 pt-3 pb-4 px-3">
+            {expanded ? (
+              <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 select-none">
+                    View
+                  </span>
+                  <div className="flex items-center bg-gray-100 rounded-lg p-0.5 gap-0.5">
+                    {VIEW_OPTIONS.map((v) => (
+                      <button
+                        key={v}
+                        onClick={() => setActiveView(v)}
+                        className={cn(
+                          "flex-1 text-xs font-medium py-1.5 rounded-md transition-all duration-150",
+                          activeView === v
+                            ? "bg-[#4A24AB] text-white shadow-sm"
+                            : "text-gray-500 hover:text-gray-700",
+                        )}
+                      >
+                        {v}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-800 text-xs font-medium">
+                    Agent
+                  </span>
+                  <button
+                    onClick={() => setTeamMode((v) => !v)}
+                    className="relative w-10 h-5 rounded-full transition-colors duration-200 shrink-0 bg-slate-300"
+                  >
+                    <span
+                      className={cn(
+                        "absolute top-0.5 w-4 h-4 rounded-full bg-white shadow-sm transition-all duration-200",
+                        teamMode ? "left-5.5" : "left-0.5",
+                      )}
+                    />
+                  </button>
+                  <span className="text-slate-800 text-xs font-medium">
+                    Team
+                  </span>
+                </div>
+
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 select-none mb-0.5">
+                    Admin
+                  </span>
+                  <Link
+                    href="/dashboard"
+                    className="flex items-center gap-2.5 px-2 py-2 rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-800 transition-all"
+                  >
+                    <Settings
+                      size={15}
+                      strokeWidth={1.8}
+                      className="text-[#4A24AB]"
+                    />
+                    <span className="text-sm font-medium text-gray-600">
+                      Settings
+                    </span>
+                  </Link>
+                </div>
+
+                <button className="flex items-center gap-2.5 w-full rounded-xl hover:bg-gray-50 px-1 py-1.5 transition-all group">
+                  <div className="w-9 h-9 rounded-full overflow-hidden border border-gray-200 shrink-0 bg-[#4A24AB] flex items-center justify-center">
+                    <Image
+                      src="/johnDoe.png"
+                      alt="John Doe"
+                      width={36}
+                      height={36}
+                      className="object-cover"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                      }}
+                    />
+                  </div>
+                  <div className="flex flex-col items-start min-w-0 flex-1">
+                    <span className="text-xs font-semibold text-gray-800 leading-tight">
+                      John Doe
+                    </span>
+                    <span className="text-[10px] text-gray-400 leading-tight truncate w-full text-left">
+                      John.doe@domain.com
+                    </span>
+                  </div>
+                  <ChevronDown
+                    size={13}
+                    className="text-gray-400 group-hover:text-gray-600 shrink-0"
+                  />
+                </button>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center gap-2">
+                <p className="uppercase text-[9px] font-medium text-center tracking-wide text-slate-500">
                   View
-                </span>
-                <div className="flex items-center bg-gray-100 rounded-lg p-0.5 gap-0.5">
+                </p>
+                <div className="w-20 h-28.5 flex flex-col items-center p-1 gap-2">
                   {VIEW_OPTIONS.map((v) => (
                     <button
                       key={v}
                       onClick={() => setActiveView(v)}
                       className={cn(
-                        "flex-1 text-xs font-medium py-1.5 rounded-md transition-all duration-150",
+                        "w-14 h-7 text-xs font-medium py-1 rounded-sm transition-all duration-150",
                         activeView === v
-                          ? "bg-[#4B3FD4] text-white shadow-sm"
-                          : "text-gray-500 hover:text-gray-700",
+                          ? "bg-[#4A24AB] text-white shadow-sm"
+                          : "bg-brand-50 text-slate-700",
                       )}
                     >
                       {v}
                     </button>
                   ))}
                 </div>
-              </div>
 
-              {/* ── Agent / Team pill toggle ── */}
-              <div className="flex items-center gap-2">
-                <span
-                  className={cn(
-                    "text-xs font-medium",
-                    !teamMode ? "text-gray-800" : "text-gray-400",
-                  )}
-                >
-                  Agent
-                </span>
-                <button
-                  onClick={() => setTeamMode((v) => !v)}
-                  className={cn(
-                    "relative w-10 h-5 rounded-full transition-colors duration-200 shrink-0",
-                    teamMode ? "bg-[#4B3FD4]" : "bg-gray-200",
-                  )}
-                >
-                  <span
-                    className={cn(
-                      "absolute top-0.5 w-4 h-4 rounded-full bg-white shadow-sm transition-all duration-200",
-                      teamMode ? "left-[22px]" : "left-0.5",
-                    )}
-                  />
-                </button>
-                <span
-                  className={cn(
-                    "text-xs font-medium",
-                    teamMode ? "text-gray-800" : "text-gray-400",
-                  )}
-                >
-                  Team
-                </span>
-              </div>
+                <div className="flex items-center justify-center w-9 h-9 rounded-lg text-[#4A24AB]">
+                  <Settings size={16} strokeWidth={1.8} />
+                </div>
 
-              {/* ── Admin ── */}
-              <div className="flex flex-col gap-0.5">
-                <span className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 select-none mb-0.5">
-                  Admin
-                </span>
-                <Link
-                  href="/dashboard/settings"
-                  className="flex items-center gap-2.5 px-2 py-2 rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-800 transition-all"
-                >
-                  <Settings
-                    size={15}
-                    strokeWidth={1.8}
-                    className="text-gray-400 shrink-0"
-                  />
-                  <span className="text-sm font-medium text-gray-600">
-                    Settings
-                  </span>
-                </Link>
-              </div>
-
-              {/* ── User row ── */}
-              <button className="flex items-center gap-2.5 w-full rounded-xl hover:bg-gray-50 px-1 py-1.5 transition-all group">
-                <div className="w-9 h-9 rounded-full overflow-hidden border border-gray-200 shrink-0 bg-[#4B3FD4] flex items-center justify-center">
+                <div className="w-9 h-9 rounded-full overflow-hidden shrink-0 bg-[#4A24AB] flex items-center justify-center">
                   <Image
-                    src="/user-avatar.jpg"
+                    src="/johnDoe.png"
                     alt="John Doe"
                     width={36}
                     height={36}
@@ -350,75 +367,10 @@ export default function Sidebar() {
                     }}
                   />
                 </div>
-                <div className="flex flex-col items-start min-w-0 flex-1">
-                  <span className="text-xs font-semibold text-gray-800 leading-tight">
-                    John Doe
-                  </span>
-                  <span className="text-[10px] text-gray-400 leading-tight truncate w-full text-left">
-                    John.doe@domain.com
-                  </span>
-                </div>
-                <ChevronDown
-                  size={13}
-                  className="text-gray-400 group-hover:text-gray-600 shrink-0"
-                />
-              </button>
-            </div>
-          ) : (
-            /* ── Collapsed bottom ───────────────────────── */
-            <div className="flex flex-col items-center gap-2">
-              {/* Active view dots */}
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div className="flex gap-1 py-1 cursor-default">
-                    {VIEW_OPTIONS.map((v) => (
-                      <button
-                        key={v}
-                        onClick={() => setActiveView(v)}
-                        className={cn(
-                          "w-1.5 h-1.5 rounded-full transition-all duration-150",
-                          activeView === v
-                            ? "bg-[#4B3FD4] scale-125"
-                            : "bg-gray-300 hover:bg-gray-400",
-                        )}
-                      />
-                    ))}
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent side="right" className="text-xs">
-                  View: {activeView}
-                </TooltipContent>
-              </Tooltip>
-
-              {/* Settings */}
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Link
-                    href="/dashboard/settings"
-                    className="flex items-center justify-center w-9 h-9 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition-all"
-                  >
-                    <Settings size={16} strokeWidth={1.8} />
-                  </Link>
-                </TooltipTrigger>
-                <TooltipContent side="right" className="text-xs">
-                  Settings
-                </TooltipContent>
-              </Tooltip>
-
-              {/* User avatar */}
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button className="w-9 h-9 rounded-full overflow-hidden border border-gray-200 hover:border-[#4B3FD4] transition-all bg-[#4B3FD4] flex items-center justify-center">
-                    <span className="text-white text-[10px] font-bold">JD</span>
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent side="right" className="text-xs">
-                  John Doe · John.doe@domain.com
-                </TooltipContent>
-              </Tooltip>
-            </div>
-          )}
-        </div>
+              </div>
+            )}
+          </div>
+        </nav>
       </aside>
     </TooltipProvider>
   );
