@@ -22,19 +22,6 @@ const MOCK_AGENTS = [
   "Emma Stone",
 ];
 
-/**
- * PropertyDescriptionForm
- *
- * Used in:
- *  - Detail page (edit mode) — pre-filled values
- *  - New Property page       — empty values
- *
- * Props:
- *  - property?: object       — pre-fill values (omit for new)
- *  - onSave?: (data) => void
- *  - onCancel?: () => void
- *  - isNew?: boolean         — show "Upload Property Image" block
- */
 export default function PropertyDescriptionForm({
   property,
   onSave,
@@ -55,7 +42,6 @@ export default function PropertyDescriptionForm({
 
   return (
     <div className="flex flex-col gap-4">
-      {/* ── Section header ── */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1.5">
           <PanelLeftOpen size={15} strokeWidth={1.8} />
@@ -64,8 +50,6 @@ export default function PropertyDescriptionForm({
           </span>
           <ChevronDown size={15} className="text-black" />
         </div>
-
-        {/* Save + Cancel */}
         <div className="flex items-center gap-1.5">
           <Button
             onClick={handleSave}
@@ -82,10 +66,8 @@ export default function PropertyDescriptionForm({
           </button>
         </div>
       </div>
-
       {/* ── Form fields ── */}
       <div className="flex flex-col gap-3">
-        {/* Address */}
         <FormField label="Address">
           <Input
             value={form.address}
@@ -95,7 +77,6 @@ export default function PropertyDescriptionForm({
           />
         </FormField>
 
-        {/* Suburb */}
         <FormField label="Suburb">
           <Input
             value={form.suburb}
@@ -105,7 +86,6 @@ export default function PropertyDescriptionForm({
           />
         </FormField>
 
-        {/* Agent */}
         <FormField label="Agent">
           <Select value={form.agent} onValueChange={set("agent")}>
             <SelectTrigger className="w-64 h-9  text-xs rounded-lg border-[#CBD5E1]">
@@ -121,7 +101,6 @@ export default function PropertyDescriptionForm({
           </Select>
         </FormField>
 
-        {/* Description */}
         <FormField label="Description">
           <Textarea
             value={form.description}
@@ -132,13 +111,11 @@ export default function PropertyDescriptionForm({
           />
         </FormField>
 
-        {/* Upload Property Image — shown on New Property only */}
         {isNew && (
           <div className="mt-1">
             <label className="flex flex-col items-center justify-center gap-2 w-full py-5 rounded-xl border-2 border-dashed border-[#4B3FD4] bg-[#FAFAFE] cursor-pointer hover:bg-[#F3F2FD] transition-colors">
               <input type="file" accept="image/*" className="hidden" />
               <div className="flex items-center gap-2 text-[#4B3FD4]">
-                {/* Upload icon */}
                 <svg
                   width="16"
                   height="16"
@@ -165,7 +142,6 @@ export default function PropertyDescriptionForm({
   );
 }
 
-// Small helper 
 function FormField({ label, children }) {
   return (
     <div className="grid grid-cols-[80px_1fr] items-start gap-3">

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Search, Plus, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import PropertyDescriptionModal from "./detail/PropertyDescriptionModal";
 
 /**
  * PropertiesTopbar
@@ -19,6 +19,7 @@ export default function PropertiesTopbar({
 }) {
   const [query, setQuery] = useState("");
   const [focused, setFocused] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const handleChange = (e) => {
     setQuery(e.target.value);
@@ -40,14 +41,10 @@ export default function PropertiesTopbar({
         />
       </div>
 
-      {/* New Property CTA */}
-      <Button
-        onClick={onNewProperty}
-        className="w-32 h-10 px-4 bg-[#4A24AB] text-white text-xs font-medium rounded-md shrink-0 gap-1 mr-1"
-      >
-        <Plus size={13} strokeWidth={2.5} />
-        New Property
-      </Button>
+      <PropertyDescriptionModal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+      />
     </div>
   );
 }
