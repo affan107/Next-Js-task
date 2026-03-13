@@ -15,6 +15,10 @@ import {
   ChevronDown,
   PanelLeftClose,
   PanelLeftOpen,
+  UserCircle,
+  Users,
+  UserCog,
+  CreditCard,
 } from "lucide-react";
 import {
   Tooltip,
@@ -287,19 +291,66 @@ export default function Sidebar() {
                   <span className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 select-none mb-0.5">
                     Admin
                   </span>
-                  <Link
-                    href="/dashboard"
-                    className="flex items-center gap-2.5 px-2 py-2 rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-800 transition-all"
-                  >
-                    <Settings
-                      size={15}
-                      strokeWidth={1.8}
-                      className="text-[#4A24AB]"
-                    />
-                    <span className="text-sm font-medium text-gray-600">
-                      Settings
-                    </span>
-                  </Link>
+                  {[
+                    {
+                      href: "/dashboard/settings/personal",
+                      icon: UserCircle,
+                      label: "Personal Settings",
+                    },
+                    {
+                      href: "/dashboard/settings/team",
+                      icon: Users,
+                      label: "Team Settings",
+                    },
+                    {
+                      href: "/dashboard/settings/members",
+                      icon: UserCog,
+                      label: "Members",
+                    },
+                    {
+                      href: "/dashboard/settings/billing",
+                      icon: CreditCard,
+                      label: "Billing",
+                    },
+                    {
+                      href: "/dashboard/settings",
+                      icon: Settings,
+                      label: "Settings",
+                    },
+                  ].map(({ href, icon: Icon, label }) => {
+                    const isActive =
+                      pathname === href || pathname.startsWith(href + "/");
+                    return (
+                      <Link
+                        key={href}
+                        href={href}
+                        className={cn(
+                          "flex items-center gap-2.5 px-2 py-2 rounded-lg transition-all",
+                          isActive
+                            ? "bg-[#EEEDF9] text-[#4B3FD4]"
+                            : "text-gray-500 hover:bg-gray-100 hover:text-gray-800",
+                        )}
+                      >
+                        <Icon
+                          size={15}
+                          strokeWidth={1.8}
+                          className={
+                            isActive ? "text-[#4B3FD4]" : "text-[#4A24AB]"
+                          }
+                        />
+                        <span
+                          className={cn(
+                            "text-sm font-medium",
+                            isActive
+                              ? "text-[#4B3FD4] font-semibold"
+                              : "text-gray-600",
+                          )}
+                        >
+                          {label}
+                        </span>
+                      </Link>
+                    );
+                  })}
                 </div>
 
                 <button className="flex items-center gap-2.5 w-full rounded-xl hover:bg-gray-50 px-1 py-1.5 transition-all group">
