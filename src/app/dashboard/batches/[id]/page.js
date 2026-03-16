@@ -10,18 +10,18 @@ import { MOCK_BATCHES } from "../../../../components/dashboard/batches/batchMock
 export default function BatchDetailPage() {
   const { id } = useParams();
 
-  // ── batches in state so new ones created here also appear in the list ───────
+  //  batches in state so new ones created here also appear in the list
   const [batches, setBatches] = useState(MOCK_BATCHES);
-  const [selectedId, setSelectedId] = useState(Number(id) || MOCK_BATCHES[0].id);
+  const [selectedId, setSelectedId] = useState(Number(id) || null);
 
   const handleSchedule = (newBatch) => {
     setBatches((prev) => [newBatch, ...prev]);
     setSelectedId(newBatch.id);
   };
 
-  // ── Look up the ACTUAL batch object by selectedId ────────────────────────────
-  // Falls back to first batch if not found
-  const selectedBatch = batches.find((b) => b.id === selectedId) ?? batches[0];
+  const selectedBatch = selectedId
+    ? (batches.find((b) => b.id === selectedId) ?? null)
+    : null;
 
   return (
     <div className="flex flex-col h-full bg-white rounded-xl shadow-sm overflow-hidden">
@@ -33,8 +33,10 @@ export default function BatchDetailPage() {
           <BatchesTable
             batches={batches}
             selectedId={selectedId}
-            compact
-            onRowClick={(b) => setSelectedId(b.id)}
+            compact={!!selectedBatch}
+            onRowClick={(b) =>
+              setSelectedId((prev) => (prev === b.id ? null : b.id))
+            }
           />
         </div>
 
@@ -42,15 +44,17 @@ export default function BatchDetailPage() {
         <div className="flex-[0_0_70%] overflow-y-auto">
           <div className="border border-slate-300 rounded-md p-6 my-4 flex flex-col gap-6">
             <BatchSummaryPanel
-              key={selectedId}                 
+              key={selectedId}
               batch={selectedBatch}
+              onClose={() => setSelectedId(null)}
               onCopyFailed={() => console.log("Copy failed to new batch")}
               onCancelBatch={() => {
                 setBatches((prev) =>
                   prev.map((b) =>
-                    b.id === selectedId ? { ...b, status: "Cancelled" } : b
-                  )
+                    b.id === selectedId ? { ...b, status: "Cancelled" } : b,
+                  ),
                 );
+                setSelectedId(null);
               }}
             />
           </div>

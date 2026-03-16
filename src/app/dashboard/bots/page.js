@@ -32,7 +32,6 @@ export default function BotsPage() {
   };
 
   const handleSave = (updatedBot) => {
-    // In a real app: PATCH to API then update local state
     setSelectedBot(updatedBot);
     console.log("Saved bot:", updatedBot);
   };

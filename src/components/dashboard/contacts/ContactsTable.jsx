@@ -17,7 +17,7 @@ import {
 import { MOCK_CONTACTS } from "./contactsMockData";
 import { cn } from "@/lib/utils";
 
-// ── Contact status badge ──────────────────────────────────────────────────────
+// Contact status badge 
 const STATUS_STYLES = {
   "Looking to purchase": "bg-[#C8FFDC] text-[#15813D]",
   "Looking to sell": "bg-[#BFE2FF] text-[#2C96F0]",
@@ -40,7 +40,7 @@ export function ContactStatusBadge({ status, className }) {
   );
 }
 
-// ── Column definitions ────────────────────────────────────────────────────────
+// Column definitions 
 const COLUMNS = [
   { key: "name", label: "Name", sortable: true },
   { key: "phone", label: "Phone Number", sortable: true },
