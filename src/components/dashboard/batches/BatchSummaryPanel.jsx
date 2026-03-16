@@ -71,11 +71,10 @@ function AIInsightsSection({ insights }) {
   );
 }
 
-// ── Calls collapsible table ───────────────────────────────────────────────────
 function CallsSection({ calls }) {
   const [open, setOpen] = useState(true);
   return (
-    <div className="rounded-lg border border-slate-200 bg-slate-50 flex flex-col">
+    <div className="rounded-lg border border-slate-500 bg-slate-50 flex flex-col">
       <button
         onClick={() => setOpen((v) => !v)}
         className="flex items-center gap-1.5 px-4 py-3 w-fit"
@@ -90,7 +89,7 @@ function CallsSection({ calls }) {
       {open && (
         <table className="w-full text-xs border-collapse">
           <thead>
-            <tr className="border-b border-slate-100">
+            <tr className="border-b text-slate-500">
               {[
                 "Contact",
                 "Time",
@@ -122,11 +121,11 @@ function CallsSection({ calls }) {
                   <BatchStatusBadge status={call.status} />
                 </td>
                 <td className="px-3 py-2.5">
-                  <div className="flex items-center gap-2">
-                    <button className="text-slate-400 hover:text-[#4A24AB] transition-colors">
+                  <div className="flex items-center gap-1">
+                    <button className="text-slate-600 w-4 h-4">
                       <ExternalLink size={13} strokeWidth={1.8} />
                     </button>
-                    <button className="text-slate-400 hover:text-[#4A24AB] transition-colors">
+                    <button className="text-[#4A24AB] w-4 h-4">
                       <Volume2 size={13} strokeWidth={1.8} />
                     </button>
                   </div>
@@ -165,16 +164,16 @@ export default function BatchSummaryPanel({
         <div className="flex items-center gap-2">
           <Button
             onClick={onCopyFailed}
-            variant="outline"
+            variant="default"
             size="sm"
-            className="h-10 px-4 text-sm font-medium border-[#4A24AB] border text-[#4A24AB] hover:bg-purple-50 rounded-md"
+            className="h-10 px-4 text-sm font-medium border-[#4A24AB] border bg-[#4A24AB] text-white rounded-md"
           >
             Copy failed to new batch
           </Button>
           <Button
             onClick={onCancelBatch}
             size="sm"
-            className="h-10 px-4 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded-md"
+            className="h-10 px-4 bg-red-500 text-white text-sm font-medium rounded-md"
           >
             Cancel Batch
           </Button>
@@ -219,10 +218,7 @@ export default function BatchSummaryPanel({
         </div>
       </div>
 
-      {/* ── AI Insights ── */}
       <AIInsightsSection insights={batch.aiInsights} />
-
-      {/* ── Calls table ── */}
       <CallsSection calls={batch.calls} />
     </div>
   );

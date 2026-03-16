@@ -5,40 +5,53 @@ import { useParams } from "next/navigation";
 import BatchesTopbar from "../../../../components/dashboard/batches/BatchesTopbar";
 import BatchesTable from "../../../../components/dashboard/batches/BatchesTable";
 import BatchSummaryPanel from "../../../../components/dashboard/batches/BatchSummaryPanel";
-import {
-  MOCK_BATCHES,
-  MOCK_BATCH_DETAIL,
-} from "../../../../components/dashboard/batches/batchMockData";
+import { MOCK_BATCHES } from "../../../../components/dashboard/batches/batchMockData";
 
 export default function BatchDetailPage() {
   const { id } = useParams();
-  const [selectedId, setSelectedId] = useState(Number(id) || 1);
 
-  // In real app: fetch by selectedId
-  const batch = { ...MOCK_BATCH_DETAIL, id: selectedId };
+  // ── batches in state so new ones created here also appear in the list ───────
+  const [batches, setBatches] = useState(MOCK_BATCHES);
+  const [selectedId, setSelectedId] = useState(Number(id) || MOCK_BATCHES[0].id);
+
+  const handleSchedule = (newBatch) => {
+    setBatches((prev) => [newBatch, ...prev]);
+    setSelectedId(newBatch.id);
+  };
+
+  // ── Look up the ACTUAL batch object by selectedId ────────────────────────────
+  // Falls back to first batch if not found
+  const selectedBatch = batches.find((b) => b.id === selectedId) ?? batches[0];
 
   return (
     <div className="flex flex-col h-full bg-white rounded-xl shadow-sm overflow-hidden">
-      <BatchesTopbar />
+      <BatchesTopbar onSchedule={handleSchedule} />
 
       <div className="flex flex-1 min-h-0 gap-6 px-6">
-        {/* Left panel — 30%, compact batch list */}
+        {/* Left panel — compact batch list */}
         <div className="flex-[0_0_30%] border-r border-gray-100 flex flex-col overflow-x-auto">
           <BatchesTable
-            batches={MOCK_BATCHES}
+            batches={batches}
             selectedId={selectedId}
             compact
             onRowClick={(b) => setSelectedId(b.id)}
           />
         </div>
 
-        {/* Right panel — 70%, batch summary */}
+        {/* Right panel — batch summary driven by selectedBatch */}
         <div className="flex-[0_0_70%] overflow-y-auto">
           <div className="border border-slate-300 rounded-md p-6 my-4 flex flex-col gap-6">
             <BatchSummaryPanel
-              batch={batch}
+              key={selectedId}                 
+              batch={selectedBatch}
               onCopyFailed={() => console.log("Copy failed to new batch")}
-              onCancelBatch={() => console.log("Cancel batch", selectedId)}
+              onCancelBatch={() => {
+                setBatches((prev) =>
+                  prev.map((b) =>
+                    b.id === selectedId ? { ...b, status: "Cancelled" } : b
+                  )
+                );
+              }}
             />
           </div>
         </div>
