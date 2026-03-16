@@ -1,13 +1,13 @@
-import PropertyGrid from "./liveProperty/PropertyGrid";
-import StatsGrid from "./stats/StatsGrid";
-import AvgCallDurationChart from "./analytics/Avgcalldurationchart";
-import BotUsageChart from "./analytics/Botusagechart";
-import CallBusinessRateChart from "./analytics/CallBusinessRateChart";
-import ConcurrentCallsChart from "./analytics/Concurrentcallschart";
-import DiaporCallControlChart from "./analytics/Diaporcallcontrolchart";
-import ProductUsageChart from "./analytics/Productusagechart";
-import UserEngagementChart from "./analytics/Userengagementchart";
-import VoicemailChart from "./analytics/Voicemailchart";
+import PropertyGrid from "../../components/dashboard/liveProperty/PropertyGrid";
+import StatsGrid from "../../components/dashboard/stats/StatsGrid";
+import AvgCallDurationChart from "../../components/dashboard/analytics/Avgcalldurationchart";
+import BotUsageChart from "../../components/dashboard/analytics/Botusagechart";
+import CallBusinessRateChart from "../../components/dashboard/analytics/CallBusinessRateChart";
+import ConcurrentCallsChart from "../../components/dashboard/analytics/Concurrentcallschart";
+import DiaporCallControlChart from "../../components/dashboard/analytics/Diaporcallcontrolchart";
+import ProductUsageChart from "../../components/dashboard/analytics/Productusagechart";
+import UserEngagementChart from "../../components/dashboard/analytics/Userengagementchart";
+import VoicemailChart from "../../components/dashboard/analytics/Voicemailchart";
 
 export default function DashboardPage() {
   return (

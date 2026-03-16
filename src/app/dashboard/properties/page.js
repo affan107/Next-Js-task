@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import PropertiesTopbar from "./PropertiesTopbar";
+import PropertiesTopbar from "../../../components/dashboard/properties/PropertiesTopbar";
 import PropertiesTable, {
   MOCK_PROPERTIES,
-} from "./PropertiesTable";
+} from "../../../components/dashboard/properties/PropertiesTable";
 
 export default function PropertiesPage() {
   const [query, setQuery] = useState("");

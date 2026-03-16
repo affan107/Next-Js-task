@@ -45,8 +45,8 @@ export default function CallsTopbar({
 
       <Button
         onClick={onDownloadCSV}
-        variant="outline"
-        className="h-10 px-4 text-sm font-medium border-[#4A24AB] border text-[#4A24AB] hover:bg-purple-50 rounded-md shrink-0 gap-1.5"
+        variant="default"
+        className="h-10 px-4 text-sm font-medium border-[#4A24AB] bg-white border text-[#4A24AB] rounded-md shrink-0 gap-1.5"
       >
         Download CSV
       </Button>

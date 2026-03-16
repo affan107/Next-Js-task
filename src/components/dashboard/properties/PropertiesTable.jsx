@@ -7,7 +7,7 @@ import PropertyStatusBadge from "./PropertyStatusBadge";
 import PropertyRowActions from "./PropertyRowActions";
 import { cn } from "@/lib/utils";
 
-//  Mock data 
+//  Mock data
 export const MOCK_PROPERTIES = [
   {
     id: 1,
@@ -83,7 +83,7 @@ export const MOCK_PROPERTIES = [
   },
 ];
 
-//  Column definitions 
+//  Column definitions
 const COLUMNS = [
   { key: "address", label: "Address", sortable: true, width: "w-[140px]" },
   { key: "suburb", label: "Suburb", sortable: true, width: "w-[110px]" },
@@ -101,7 +101,7 @@ const COLUMNS = [
   { key: "status", label: "Status", sortable: true, width: "w-[120px]" },
 ];
 
-//  Sort icon helper 
+//  Sort icon helper
 function SortIcon({ column, sortKey, sortDir }) {
   if (sortKey !== column)
     return <ChevronsUpDown size={11} className="text-gray-300 ml-1 shrink-0" />;

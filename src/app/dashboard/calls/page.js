@@ -3,12 +3,18 @@
 import { useState } from "react";
 import CallsTopbar from "../../../components/dashboard/calls/CallsTopbar";
 import CallsTable from "../../../components/dashboard/calls/CallsTable";
+import CallDetailPanel from "../../../components/dashboard/calls/CallDetailPanel";
 import { MOCK_CALLS } from "../../../components/dashboard/calls/callsMockData";
 
 export default function CallsPage() {
-  const [query, setQuery] = useState("");
-
-  const filtered = MOCK_CALLS.filter((c) => {
+  const [calls, setCalls]         = useState(MOCK_CALLS);
+  const [query, setQuery]         = useState("");
+  const [selectedId, setSelectedId] = useState(null);
+ 
+  // Look up full call object by id
+  const selectedCall = selectedId ? calls.find((c) => c.id === selectedId) ?? null : null;
+ 
+  const filtered = calls.filter((c) => {
     const q = query.toLowerCase();
     return (
       c.contact.toLowerCase().includes(q) ||
@@ -17,7 +23,7 @@ export default function CallsPage() {
       c.bot.toLowerCase().includes(q)
     );
   });
-
+ 
   return (
     <div className="flex flex-col h-full bg-white rounded-xl shadow-sm overflow-hidden">
       <CallsTopbar
@@ -25,7 +31,31 @@ export default function CallsPage() {
         onDownloadCSV={() => console.log("Download CSV")}
         onLogCall={() => console.log("Log a Call")}
       />
-      <CallsTable calls={filtered} />
+ 
+      <div className="flex flex-1 min-h-0">
+        {/* Table — shrinks when panel open */}
+        <div className={`${selectedCall ? "flex-[0_0_40%]" : "flex-1"} border-r border-gray-100 overflow-auto`}>
+          <CallsTable
+            calls={filtered}
+            selectedId={selectedId}
+            compact={!!selectedCall}
+            onRowClick={(c) => setSelectedId((prev) => (prev === c.id ? null : c.id))}
+          />
+        </div>
+ 
+        {/* Detail panel — only when a call is selected */}
+        {selectedCall && (
+          <div className="flex-[0_0_60%] overflow-y-auto">
+            <div className="border border-slate-200 rounded-md m-4 p-5">
+              <CallDetailPanel
+                key={selectedId}      
+                call={selectedCall}
+                onClose={() => setSelectedId(null)}  
+              />
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

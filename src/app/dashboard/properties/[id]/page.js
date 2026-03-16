@@ -2,16 +2,18 @@
 
 import { useState } from "react";
 import { useParams } from "next/navigation";
-import PropertiesTopbar from "../PropertiesTopbar";
-import PropertiesTable, { MOCK_PROPERTIES } from "../PropertiesTable";
-import PropertyDescription from "../detail/PropertyDescription";
-import CampaignInfo from "../detail/CampaignInfo";
-import KeyDates from "../detail/KeyDates";
-import AIInsightsCard from "../detail/AIInsightsCard";
-import { CallsTable } from "../detail/CallsTable.jsx";
-import { BatchesTable } from "../detail/BatchesTable.jsx";
+import PropertiesTopbar from "../../../../components/dashboard/properties/PropertiesTopbar";
+import PropertiesTable, {
+  MOCK_PROPERTIES,
+} from "../../../../components/dashboard/properties/PropertiesTable";
+import PropertyDescription from "../../../../components/dashboard/properties/detail/PropertyDescription";
+import CampaignInfo from "../../../../components/dashboard/properties/detail/CampaignInfo";
+import KeyDates from "../../../../components/dashboard/properties/detail/KeyDates";
+import AIInsightsCard from "../../../../components/dashboard/properties/detail/AIInsightsCard";
+import { CallsTable } from "../../../../components/dashboard/properties/detail/CallsTable.jsx";
+import { BatchesTable } from "../../../../components/dashboard/properties/detail/BatchesTable.jsx";
 import { Separator } from "@/components/ui/separator";
-import PropertyDescriptionForm from "../detail/PropertyDescriptionForm";
+import PropertyDescriptionForm from "../../../../components/dashboard/properties/detail/PropertyDescriptionForm";
 
 export default function PropertyDetailPage() {
   const { id } = useParams();
