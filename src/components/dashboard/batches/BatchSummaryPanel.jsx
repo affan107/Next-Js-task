@@ -139,24 +139,23 @@ function CallsSection({ calls }) {
   );
 }
 
-/**
- * BatchSummaryPanel
- * Props:
- *  - batch?: object   — defaults to MOCK_BATCH_DETAIL
- *  - onCopyFailed?: () => void
- *  - onCancelBatch?: () => void
- */
 export default function BatchSummaryPanel({
   batch = MOCK_BATCH_DETAIL,
   onCopyFailed,
   onCancelBatch,
+  onClose,
 }) {
   return (
     <div className="flex flex-col gap-6">
-      {/* ── Header row ── */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Maximize2 size={14} className="text-slate-400" strokeWidth={1.8} />
+          <button
+            onClick={onClose}
+            title="Close panel"
+            className="text-slate-400 hover:text-slate-700 transition-colors"
+          >
+            <Maximize2 size={14} strokeWidth={1.8} />
+          </button>
           <span className="text-xl font-semibold text-slate-700">
             Batch Summary
           </span>
@@ -180,9 +179,7 @@ export default function BatchSummaryPanel({
         </div>
       </div>
 
-      {/* ── Stats grid: left col + right col ── */}
       <div className="flex gap-12">
-        {/* Left: main fields */}
         <div className="flex flex-col gap-2.5 flex-1">
           <p className="text-sm font-semibold text-slate-500">Batch Summary</p>
           <p className="text-xl font-bold text-slate-900 mb-1">
@@ -208,7 +205,6 @@ export default function BatchSummaryPanel({
           <StatRow label="% Completed" value={batch.pctCompleted} />
         </div>
 
-        {/* Right: rates */}
         <div className="flex flex-col gap-2.5 shrink-0">
           <StatRow label="Voicemail Rate" value={batch.voicemailRate} />
           <StatRow label="Dropout Rate" value={batch.dropoutRate} />

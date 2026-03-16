@@ -286,7 +286,6 @@ export default function ContactSummaryPanel({ contact, onClose, onSave }) {
           </div>
         )}
 
-        {/* ── AI Insights ── */}
         <Collapsible title="AI Insights" cardStyle>
           <div className="flex flex-col gap-1">
             {contact.aiInsights.map((line, i) => (
@@ -297,7 +296,6 @@ export default function ContactSummaryPanel({ contact, onClose, onSave }) {
           </div>
         </Collapsible>
 
-        {/* ── Contact Profile ── */}
         <Collapsible title="Contact Profile">
           {editing ? (
             <Textarea
@@ -313,11 +311,9 @@ export default function ContactSummaryPanel({ contact, onClose, onSave }) {
           )}
         </Collapsible>
 
-        {/* ── Properties ── */}
         <Collapsible title="Properties">
           {editing ? (
             <div className="flex flex-col gap-2">
-              {/* Header row */}
               <div className="grid grid-cols-[1fr_1fr_auto] gap-2 px-1 pb-1 border-b border-slate-100">
                 <span className="text-xs font-semibold text-[#4A24AB]">
                   Property
@@ -358,7 +354,6 @@ export default function ContactSummaryPanel({ contact, onClose, onSave }) {
                   </button>
                 </div>
               ))}
-              {/* New Property button */}
               <Button
                 onClick={() => setAddPropOpen(true)}
                 className="w-full h-9 mt-1 bg-[#4A24AB] hover:bg-[#3b1d8a] text-white text-sm font-semibold rounded-lg gap-1.5"
@@ -381,7 +376,6 @@ export default function ContactSummaryPanel({ contact, onClose, onSave }) {
           )}
         </Collapsible>
 
-        {/* ── Calls ── */}
         <Collapsible title="Calls">
           <div className="overflow-x-auto">
             <table className="w-full text-xs border-collapse">
@@ -451,7 +445,6 @@ export default function ContactSummaryPanel({ contact, onClose, onSave }) {
         </Collapsible>
       </div>
 
-      {/* Add Property Modal */}
       <AddPropertyModal
         open={addPropOpen}
         onClose={() => setAddPropOpen(false)}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Maximize2, Copy, Phone, ExternalLink, X } from "lucide-react";
+import { Maximize2, Phone, X, PanelLeftOpen, Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -19,6 +19,7 @@ import {
   TEMPLATE_OPTIONS,
   VOICE_OPTIONS,
 } from "./botsMockData";
+import { SquarePen } from "lucide-react";
 
 function StatRow({ label, value }) {
   return (
@@ -39,19 +40,10 @@ function FieldLabel({ children }) {
   );
 }
 
-/**
- * Fully driven by the `bot` prop — no hardcoded values.
- *
- * Props:
- *  - bot: object              — the currently selected bot row
- *  - onClose?: () => void
- *  - onSave?: (updatedBot) => void
- */
 export default function BotSummaryPanel({ bot, onClose, onSave }) {
   const [editing, setEditing] = useState(false);
   const [testCallOpen, setTestCallOpen] = useState(false);
 
-  // Local edit form — initialised fresh whenever bot changes
   const [form, setForm] = useState(null);
 
   const currentForm = form ?? {
@@ -82,20 +74,25 @@ export default function BotSummaryPanel({ bot, onClose, onSave }) {
   return (
     <>
       <div className="flex flex-col h-full">
-        {/* ── Header ── */}
         <div className="flex items-start justify-between mb-4">
           <div className="flex flex-col gap-0.5">
+            <span className="text-sm font-semibold text-[#4A24AB]">
+              Bot Summary
+            </span>
             <div className="flex items-center gap-2 mb-1">
-              <Maximize2
+              <button
+                onClick={onClose}
+                title="Close panel"
+                className="text-slate-400 hover:text-slate-700 transition-colors"
+              >
+                <Maximize2 size={13} strokeWidth={1.8} />
+              </button>
+              <PanelLeftOpen
                 size={13}
                 className="text-slate-400"
                 strokeWidth={1.8}
               />
-              <Copy size={13} className="text-slate-400" strokeWidth={1.8} />
             </div>
-            <span className="text-xs font-semibold text-[#4A24AB]">
-              Bot Summary
-            </span>
             <h2 className="text-xl font-bold text-slate-900">
               {bot.summaryTitle ?? bot.activity}
             </h2>
@@ -130,9 +127,9 @@ export default function BotSummaryPanel({ bot, onClose, onSave }) {
                 </Button>
                 <button
                   onClick={() => setEditing(true)}
-                  className="flex items-center justify-center w-9 h-9 rounded-md border border-slate-200 text-slate-500 hover:bg-slate-50 transition-all"
+                  className="flex items-center justify-center w-9 h-9 rounded-md border text-[#4A24AB]"
                 >
-                  <ExternalLink size={13} strokeWidth={1.8} />
+                  <SquarePen size={13} strokeWidth={1.8} />
                 </button>
               </>
             )}
@@ -142,135 +139,131 @@ export default function BotSummaryPanel({ bot, onClose, onSave }) {
         {/* ── Body ── */}
         <div className="flex-1 overflow-y-auto flex flex-col gap-4">
           {editing ? (
-            /* ── Edit Mode ── */
-            <>
-              <div>
-                <FieldLabel>Bot Name</FieldLabel>
-                <Input
-                  value={currentForm.name}
-                  onChange={(e) => setField("name", e.target.value)}
-                  placeholder="Lead Qualification"
-                  className="h-9 text-sm rounded-md border-[#CBD5E1] focus-visible:ring-[#4A24AB]"
-                />
-              </div>
+            <div className="grid grid-cols-[140px_1fr] gap-y-2 items-center over">
+              <FieldLabel>Bot Name</FieldLabel>
+              <Input
+                value={currentForm.name}
+                onChange={(e) => setField("name", e.target.value)}
+                placeholder="Lead Qualification"
+                className="h-9 text-sm rounded-md border-[#CBD5E1] focus-visible:ring-[#4A24AB]"
+              />
 
-              <div>
-                <FieldLabel>Workflow Stage</FieldLabel>
-                <Select
-                  value={currentForm.workflowStage}
-                  onValueChange={(v) => setField("workflowStage", v)}
-                >
-                  <SelectTrigger className="h-9 text-sm rounded-md border-[#CBD5E1] focus:ring-[#4A24AB]">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {WORKFLOW_STAGES.map((s) => (
-                      <SelectItem key={s} value={s} className="text-sm">
-                        {s}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+              <FieldLabel>Workflow Stage</FieldLabel>
+              <Select
+                value={currentForm.workflowStage}
+                onValueChange={(v) => setField("workflowStage", v)}
+              >
+                <SelectTrigger className="w-full h-9 text-sm rounded-md border-[#CBD5E1] focus:ring-[#4A24AB]">
+                  <SelectValue />
+                </SelectTrigger>
 
-              <div>
-                <FieldLabel>Activity</FieldLabel>
-                <Select
-                  value={currentForm.activity}
-                  onValueChange={(v) => setField("activity", v)}
-                >
-                  <SelectTrigger className="h-9 text-sm rounded-md border-[#CBD5E1] focus:ring-[#4A24AB]">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {ACTIVITY_OPTIONS.map((a) => (
-                      <SelectItem key={a} value={a} className="text-sm">
-                        {a}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div>
-                <FieldLabel>Description</FieldLabel>
-                <Input
-                  value={currentForm.description}
-                  onChange={(e) => setField("description", e.target.value)}
-                  placeholder="Pitch new properties"
-                  className="h-9 text-sm rounded-md border-[#CBD5E1] focus-visible:ring-[#4A24AB]"
-                />
-              </div>
-
-              <div>
-                <FieldLabel>Template</FieldLabel>
-                <Select
-                  value={currentForm.template}
-                  onValueChange={(v) => setField("template", v)}
-                >
-                  <SelectTrigger className="h-9 text-sm rounded-md border-[#CBD5E1] focus:ring-[#4A24AB]">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {TEMPLATE_OPTIONS.map((t) => (
-                      <SelectItem key={t} value={t} className="text-sm">
-                        {t}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div>
-                <FieldLabel>Voice</FieldLabel>
-                <Select
-                  value={currentForm.voice}
-                  onValueChange={(v) => setField("voice", v)}
-                >
-                  <SelectTrigger className="h-9 text-sm rounded-md border-[#CBD5E1] focus:ring-[#4A24AB]">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {VOICE_OPTIONS.map((v) => (
-                      <SelectItem key={v} value={v} className="text-sm">
-                        {v}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div>
-                <FieldLabel>Description</FieldLabel>
-                <Textarea
-                  value={currentForm.promptDescription}
-                  onChange={(e) =>
-                    setField("promptDescription", e.target.value)
-                  }
-                  rows={4}
-                  className="text-sm rounded-md border-[#CBD5E1] focus-visible:ring-[#4A24AB] resize-none"
-                />
-              </div>
-
-              <div>
-                <FieldLabel>Data Collection</FieldLabel>
-                <div className="rounded-md border border-[#CBD5E1] p-3 flex flex-col gap-1.5 max-h-40 overflow-y-auto">
-                  {currentForm.dataCollection.map((item, i) => (
-                    <label
-                      key={i}
-                      className="flex items-center gap-2 cursor-pointer"
-                    >
-                      <input
-                        type="checkbox"
-                        className="w-3.5 h-3.5 rounded border-gray-300 accent-[#4A24AB]"
-                        defaultChecked
-                      />
-                      <span className="text-xs text-slate-700">{item}</span>
-                    </label>
+                <SelectContent>
+                  {WORKFLOW_STAGES.map((s) => (
+                    <SelectItem key={s} value={s} className="text-sm">
+                      {s}
+                    </SelectItem>
                   ))}
-                </div>
+                </SelectContent>
+              </Select>
+
+              {/* Activity */}
+              <FieldLabel>Activity</FieldLabel>
+              <Select
+                value={currentForm.activity}
+                onValueChange={(v) => setField("activity", v)}
+              >
+                <SelectTrigger className="w-full h-9 text-sm rounded-md border-[#CBD5E1] focus:ring-[#4A24AB]">
+                  <SelectValue />
+                </SelectTrigger>
+
+                <SelectContent>
+                  {ACTIVITY_OPTIONS.map((a) => (
+                    <SelectItem key={a} value={a} className="text-sm">
+                      {a}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <FieldLabel>Description</FieldLabel>
+              <Input
+                value={currentForm.description}
+                onChange={(e) => setField("description", e.target.value)}
+                placeholder="Pitch new properties"
+                className="w-full h-9 text-sm rounded-md border-[#CBD5E1] focus-visible:ring-[#4A24AB]"
+              />
+
+              <FieldLabel>Template</FieldLabel>
+              <Select
+                value={currentForm.template}
+                onValueChange={(v) => setField("template", v)}
+              >
+                <SelectTrigger className="w-full h-9 text-sm rounded-md border-[#CBD5E1] focus:ring-[#4A24AB]">
+                  <SelectValue />
+                </SelectTrigger>
+
+                <SelectContent>
+                  {TEMPLATE_OPTIONS.map((t) => (
+                    <SelectItem key={t} value={t} className="text-sm">
+                      {t}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <FieldLabel>Voice</FieldLabel>
+              <Select
+                value={currentForm.voice}
+                onValueChange={(v) => setField("voice", v)}
+              >
+                <SelectTrigger className="w-full h-9 text-sm rounded-md border-[#CBD5E1] focus:ring-[#4A24AB]">
+                  <SelectValue />
+                </SelectTrigger>
+
+                <SelectContent>
+                  {VOICE_OPTIONS.map((v) => (
+                    <div className="flex  justify-center">
+                      <SelectItem
+                        key={v}
+                        value={v}
+                        className="text-sm flex items-center justify-between gap-2"
+                      >
+                        <span>{v}</span>
+                        <Volume2 className="w-1 h-1 text-[#4A24AB]" />
+                      </SelectItem>
+                    </div>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <FieldLabel>Description</FieldLabel>
+              <Textarea
+                value={currentForm.promptDescription}
+                onChange={(e) => setField("promptDescription", e.target.value)}
+                placeholder="have a discussion with the buyer"
+                rows={4}
+                className="text-sm rounded-md border-[#CBD5E1] focus-visible:ring-[#4A24AB] resize-none"
+              />
+
+              <FieldLabel className="self-start pt-2">
+                Data Collection
+              </FieldLabel>
+
+              <div className="rounded-md border border-[#CBD5E1] p-3 flex flex-col gap-2 max-h-40 overflow-y-auto">
+                {currentForm.dataCollection.map((item, i) => (
+                  <label
+                    key={i}
+                    className="flex items-center gap-2 cursor-pointer"
+                  >
+                    <input
+                      type="checkbox"
+                      className="w-3.5 h-3.5 rounded border-gray-300 accent-[#4A24AB]"
+                    />
+                    <span className="text-xs text-slate-700">{item}</span>
+                  </label>
+                ))}
               </div>
-            </>
+            </div>
           ) : (
             <div className="flex flex-col gap-3">
               <StatRow label="Bot Name" value={bot.name} />

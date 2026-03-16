@@ -33,18 +33,18 @@ export default function TestCallModal({ open, onClose, onStartCall, botName }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-[4px]"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-[1px]"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="bg-white rounded-2xl shadow-xl w-[460px] p-8 flex flex-col gap-5">
-        <h2 className="text-sm font-bold text-[#4A24AB]">Test Call</h2>
+      <div className="bg-white rounded-2xl shadow-xl w-187 p-8 flex flex-col gap-5">
+        <h2 className="text-lg font-bold text-[#4A24AB]">Test Call</h2>
 
         <div className="flex flex-col gap-1.5">
           <span className="text-sm font-medium text-[#4A24AB]">Property</span>
           <Select value={property} onValueChange={setProperty}>
-            <SelectTrigger className="h-10 text-sm rounded-md border-[#CBD5E1]">
+            <SelectTrigger className="w-171 h-10 text-sm rounded-md border-[#CBD5E1]">
               <SelectValue placeholder="Select Property" />
             </SelectTrigger>
             <SelectContent>
@@ -60,7 +60,7 @@ export default function TestCallModal({ open, onClose, onStartCall, botName }) {
         <div className="flex flex-col gap-1.5">
           <span className="text-sm font-medium text-[#4A24AB]">Type</span>
           <Select value={type} onValueChange={setType}>
-            <SelectTrigger className="h-10 text-sm rounded-md border-[#CBD5E1]">
+            <SelectTrigger className="w-171 h-10 text-sm rounded-md border-[#CBD5E1]">
               <SelectValue placeholder="Test" />
             </SelectTrigger>
             <SelectContent>
@@ -76,14 +76,15 @@ export default function TestCallModal({ open, onClose, onStartCall, botName }) {
             </SelectContent>
           </Select>
         </div>
-
-        <Button
-          onClick={handleStart}
-          className="h-11 w-full bg-[#4A24AB] hover:bg-[#3b1d8a] text-white text-sm font-semibold rounded-lg gap-2 mt-1"
-        >
-          <Phone size={15} strokeWidth={2} />
-          Start Call
-        </Button>
+        <div  className="flex justify-center" >
+          <Button
+            onClick={handleStart}
+            className="w-96 h-10 bg-[#4A24AB] text-white text-sm font-semibold rounded-lg gap-2 mt-1"
+          >
+            <Phone size={15} strokeWidth={2} />
+            Start Call
+          </Button>
+        </div>
       </div>
     </div>
   );
