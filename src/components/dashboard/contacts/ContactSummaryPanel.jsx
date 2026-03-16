@@ -188,7 +188,6 @@ export default function ContactSummaryPanel({ contact, onClose, onSave }) {
   return (
     <>
       <div className="flex flex-col gap-5">
-        {/* ── Header ── */}
         <div className="flex items-start justify-between">
           <div className="flex flex-col gap-0.5">
             <div className="flex items-center gap-2 mb-1">

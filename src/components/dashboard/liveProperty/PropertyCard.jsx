@@ -48,11 +48,11 @@ export default function PropertyCard({
         </p>
 
         {/* Actions */}
-        <div className="flex items-center gap-1.5 mt-1">
+        <div className="flex items-center justify-center gap-2 mt-1">
           <Button
             size="sm"
             onClick={onCreateEvent}
-            className="flex-1 h-7 text-sm font-medium bg-[#4A24AB] text-[#FFFFFF] rounded-sm px-2"
+            className="h-7 text-sm font-medium bg-[#4A24AB] text-[#FFFFFF] rounded-sm px-2"
           >
             Create Batch
           </Button>
@@ -61,7 +61,7 @@ export default function PropertyCard({
               <Button
                 size="sm"
                 onClick={onJump}
-                className="flex-1 h-7 text-sm font-medium border-2 border-[#4A24AB] bg-white text-[#4A24AB] rounded-sm px-2"
+                className=" h-7 text-sm font-medium border-2 border-[#4A24AB] bg-white text-[#4A24AB] rounded-sm px-2"
               >
                 Jump to
                 <ArrowRight size={11} className="ml-1 shrink-0" />
