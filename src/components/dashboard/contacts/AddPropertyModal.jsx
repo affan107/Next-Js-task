@@ -73,7 +73,7 @@ export default function AddPropertyModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-[1px]"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-[4px]"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
