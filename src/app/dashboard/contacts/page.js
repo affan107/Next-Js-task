@@ -7,7 +7,6 @@ import ContactsTable from "../../../components/dashboard/contacts/ContactsTable"
 import ContactSummaryPanel from "../../../components/dashboard/contacts/ContactSummaryPanel";
 import { MOCK_CONTACTS } from "../../../components/dashboard/contacts/contactsMockData";
 
-// ── Contacts topbar ───────────────────────────────────────────────────────────
 function ContactsTopbar({ onSearch, onNewContact }) {
   const [query, setQuery] = useState("");
 
@@ -18,14 +17,12 @@ function ContactsTopbar({ onSearch, onNewContact }) {
 
   return (
     <div className="ml-auto mb-3 flex items-center gap-3 mr-2">
-     
       {/* <div className="flex items-center gap-2 shrink-0">
         <AlignJustify size={14} className="text-gray-400" strokeWidth={1.8} />
         <span className="text-sm font-medium text-gray-700">Contacts</span>
       </div> */}
 
-      {/* Search */}
-      <div className="w-100 h-10 border-[#4A24AB] flex items-center gap-2 px-3 rounded-lg border bg-gray-50">
+      <div className="w-100 h-10 border-[#EBEAFD] flex items-center gap-2 px-3 rounded-lg border bg-gray-50">
         <Search size={13} className="text-gray-400 shrink-0" />
         <input
           type="text"

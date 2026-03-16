@@ -103,7 +103,7 @@ export default function PropertyGrid({
         <h2 className="text-sm font-semibold text-gray-800">{title}</h2>
       </div>
 
-      <div className="grid gap-3 grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">
+      <div className="grid gap-3 grid-cols-[repeat(auto-fit,minmax(248px,1fr))]">
         {properties.map((property) => (
           <PropertyCard
             key={property.id}
