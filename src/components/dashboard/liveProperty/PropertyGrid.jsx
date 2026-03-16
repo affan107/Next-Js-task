@@ -2,7 +2,7 @@
 
 import PropertyCard from "./PropertyCard";
 
-// Mock data 
+// Mock data
 const MOCK_PROPERTIES = [
   {
     id: 1,

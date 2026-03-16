@@ -1,4 +1,4 @@
-import DashboardShell from "./components/DashboardShell";
+import DashboardShell from "../../components/dashboard/shell/DashboardShell.jsx";
 
 export const metadata = {
   title: "Voxworks",

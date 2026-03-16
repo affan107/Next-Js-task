@@ -66,7 +66,6 @@ function MiniTable({ columns, rows, renderCell }) {
   );
 }
 
-
 const BATCH_COLUMNS = [
   { key: "name", label: "Batch" },
   { key: "time", label: "Time" },
