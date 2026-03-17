@@ -1,20 +1,26 @@
 "use client";
 
-import { SquarePen, ChevronDown, PanelLeftOpen } from "lucide-react";
+import { SquarePen, ChevronDown, PanelLeftOpen, Maximize2, Minimize2 } from "lucide-react";
 
-/**
- * PropertyDescription
- * Props:
- *  - property: { address, suburb, agent, description, ... }
- *  - onEdit?: () => void
- */
-export default function PropertyDescription({ property, onEdit }) {
+export default function PropertyDescription({ property, onEdit, onMaximize, maximized, onClose }) {
   return (
     <div className="flex flex-col gap-3">
-      {/* Section header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1.5">
-          <PanelLeftOpen size={15} strokeWidth={1.8} />
+          <button
+            onClick={onMaximize}
+            title={maximized ? "Restore" : "Maximize"}
+            className="text-slate-400 hover:text-slate-700 transition-colors"
+          >
+            {maximized
+              ? <Minimize2 size={14} strokeWidth={1.8} />
+              : <Maximize2 size={14} strokeWidth={1.8} />
+            }
+          </button>
+          <button title="Close panel"  onClick={onClose}>
+            <PanelLeftOpen size={15} strokeWidth={1.8} />
+          </button>
+         
           <span className="text-xl font-semibold text-slate-700">
             Property Description
           </span>
@@ -28,7 +34,6 @@ export default function PropertyDescription({ property, onEdit }) {
         </button>
       </div>
 
-      {/* Property name */}
       <div>
         <p className="text-sm font-medium text-[#4A24AB] mb-1">Property Name</p>
         <h1 className="text-xl font-semibold text-slate-700">
@@ -36,16 +41,15 @@ export default function PropertyDescription({ property, onEdit }) {
         </h1>
       </div>
 
-      {/* Agent row */}
       <div className="flex items-center gap-4">
         <p className="text-sm font-medium text-[#4A24AB]">Agent</p>
 
         <div className="flex items-center gap-2">
-          <span className="px-3 py-1 text-sm  text-slate-800 bg-slate-200 rounded-full">
+          <span className="px-3 py-1 text-sm  text-slate-800 border border-slate-300 rounded-full">
             {property?.agent ?? "John Mcmahon"}
           </span>
 
-          <span className="px-3 py-1 text-sm  text-slate-800 bg-slate-200 rounded-full">
+          <span className="px-3 py-1 text-sm  text-slate-800 border border-slate-300 rounded-full">
             {property?.coAgent ?? "Emily Rose"}
           </span>
         </div>

@@ -5,8 +5,8 @@ import {
   ChevronDown,
   ChevronUp,
   Maximize2,
-  Copy,
-  ExternalLink,
+  PanelLeftOpen,
+  SquarePen,
   X,
   Plus,
   MoreHorizontal,
@@ -193,10 +193,10 @@ export default function ContactSummaryPanel({ contact, onClose, onSave }) {
             <div className="flex items-center gap-2 mb-1">
               <Maximize2
                 size={13}
-                className="text-slate-400"
+                className="text-slate-800"
                 strokeWidth={1.8}
               />
-              <Copy size={13} className="text-slate-400" strokeWidth={1.8} />
+              <PanelLeftOpen size={13} className="text-slate-800" strokeWidth={1.8} />
             </div>
             <span className="text-xs font-semibold text-[#4A24AB]">
               Contact Summary
@@ -226,7 +226,7 @@ export default function ContactSummaryPanel({ contact, onClose, onSave }) {
                 onClick={() => setEditing(true)}
                 className="flex items-center justify-center w-9 h-9 rounded-md border border-slate-200 text-slate-500 hover:bg-slate-50 transition-all"
               >
-                <ExternalLink size={13} strokeWidth={1.8} />
+                  <SquarePen size={13} strokeWidth={1.8} />
               </button>
             )}
           </div>

@@ -38,7 +38,7 @@ export default function TestCallModal({ open, onClose, onStartCall, botName }) {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="bg-white rounded-2xl shadow-xl w-187 p-8 flex flex-col gap-5">
+      <div className="bg-white rounded-2xl shadow-xl  p-8 flex flex-col gap-5">
         <h2 className="text-lg font-bold text-[#4A24AB]">Test Call</h2>
 
         <div className="flex flex-col gap-1.5">

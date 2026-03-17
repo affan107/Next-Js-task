@@ -10,6 +10,7 @@ export default function BatchesPage() {
   const [batches, setBatches]     = useState(MOCK_BATCHES);
   const [query, setQuery]         = useState("");
   const [selectedId, setSelectedId] = useState(null);
+  const [maximized, setMaximized] = useState(false);
 
   const handleSchedule = (newBatch) => {
     setBatches((prev) => [newBatch, ...prev]);
@@ -34,6 +35,7 @@ export default function BatchesPage() {
       <BatchesTopbar onSearch={setQuery} onSchedule={handleSchedule} />
 
       <div className="flex flex-1 min-h-0">
+        {!maximized && (
         <div className={`${selectedBatch ? "flex-[0_0_40%]" : "flex-1"} border-r border-gray-100 overflow-auto`}>
           <BatchesTable
             batches={filtered}
@@ -42,14 +44,16 @@ export default function BatchesPage() {
             onRowClick={(b) => setSelectedId((prev) => (prev === b.id ? null : b.id))}
           />
         </div>
+        )}
 
         {selectedBatch && (
-          <div className="flex-[0_0_60%] overflow-y-auto">
+          <div className={maximized ? "flex-1 overflow-y-auto" : "flex-[0_0_60%] overflow-y-auto"}>
             <div className="border border-slate-200 rounded-md m-4 p-5">
               <BatchSummaryPanel
                 key={selectedId}
                 batch={selectedBatch}
-                onClose={() => setSelectedId(null)}        
+                onMaximize={() => setMaximized((v) => !v)}
+                onClose={() => { setSelectedId(null); setMaximized(false); }}         
                 onCopyFailed={() => console.log("Copy failed")}
                 onCancelBatch={() => {
                   setBatches((prev) =>

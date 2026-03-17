@@ -4,9 +4,9 @@ const STATUS_STYLES = {
   "Pre-Launched": "bg-[#BFE2FF] text-[#2C96F0]",
   Live: "bg-[#C8FFDC]  text-[#15813D]",
   Closed: "bg-[#FFC5C5]    text-[#B42941]",
-  // Completed: "bg-blue-100   text-blue-700",
-  // Scheduled: "bg-amber-100  text-amber-700",
-  // "In Progress": "bg-indigo-100 text-indigo-700",
+  Completed: "bg-[#C8FFDC]   text-[#15813D]",
+  Scheduled: "bg-[#DAD7FD]  text-[#5C2DD4]",
+  "In Progress": "bg-[#BFE2FF] text-[#2C96F0]",
 };
 
 /**

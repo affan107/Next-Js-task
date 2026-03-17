@@ -112,14 +112,6 @@ function SortIcon({ column, sortKey, sortDir }) {
   );
 }
 
-/**
- * PropertiesTable
- * Props:
- *  - properties?: array     — defaults to MOCK_PROPERTIES
- *  - selectedId?: number    — highlight a row (used on detail page left panel)
- *  - onRowClick?: (property) => void
- *  - compact?: boolean      — narrower version for left panel on detail page
- */
 export default function PropertiesTable({
   properties = MOCK_PROPERTIES,
   selectedId,
@@ -163,18 +155,17 @@ export default function PropertiesTable({
     : COLUMNS;
 
   return (
-    <div className="flex flex-col flex-1 min-h-0">
+    <div className="flex flex-col min-h-0">
       <div className="overflow-auto flex-1">
         <table className="min-w-full text-xs border-collapse">
-          {/* ── Head ── */}
-          <thead className="sticky top-0 bg-white z-10">
+          <thead className=" bg-white">
             <tr className="border-b border-gray-100">
               {visibleColumns.map((col) => (
                 <th
                   key={col.key}
                   onClick={() => col.sortable && handleSort(col.key)}
                   className={cn(
-                    "w-9.5 px-3 py-2.5 text-xs font-semibold text-slate-500 whitespace-nowrap select-none",
+                    "w-9.5 px-3 py-2 text-xs font-semibold text-slate-500 select-none",
                     col.width,
                     col.sortable && "cursor-pointer",
                   )}
@@ -198,8 +189,6 @@ export default function PropertiesTable({
               )}
             </tr>
           </thead>
-
-          {/* ── Body ── */}
           <tbody>
             {sorted.map((property) => {
               const isSelected =
@@ -217,15 +206,7 @@ export default function PropertiesTable({
                 >
                   {/* Address */}
                   {visibleColumns.map((col) => (
-                    <td
-                      key={col.key}
-                      className={cn(
-                        "px-3 py-2.5 text-xs text-slate-800",
-                        col.key === "address" && " text-slate-800",
-                        col.key === "description" &&
-                          "text-slate-400 truncate max-w-[145px]",
-                      )}
-                    >
+                    <td key={col.key} className="px-3 py-2 text-xs text-slate-800">
                       {col.key === "status" ? (
                         <PropertyStatusBadge status={property.status} />
                       ) : col.key === "type" ? (
@@ -241,7 +222,7 @@ export default function PropertiesTable({
                   {/* Action */}
                   {!compact && (
                     <td
-                      className="px-3 py-2.5"
+                      className="px-3 py-2"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <PropertyRowActions
