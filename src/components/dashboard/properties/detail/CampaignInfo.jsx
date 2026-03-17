@@ -53,14 +53,14 @@ export default function CampaignInfo({ property, onCreateCampaign }) {
             <SelectTrigger className="h-8 w-45 text-sm font-normal border-[#CBD5E1] rounded">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Sale #1" className="text-sm">
+            <SelectContent className="rounded-lg border border-gray-200 shadow-md p-1">
+              <SelectItem value="Sale #1" className="text-sm rounded-md px-2 py-1.5 cursor-pointer">
                 Sale #1
               </SelectItem>
-              <SelectItem value="Sale #2" className="text-sm">
+              <SelectItem value="Sale #2" className="text-sm rounded-md px-2 py-1.5 cursor-pointer">
                 Sale #2
               </SelectItem>
-              <SelectItem value="Rental #1" className="text-sm">
+              <SelectItem value="Rental #1" className="text-sm rounded-md px-2 py-1.5 cursor-pointer">
                 Rental #1
               </SelectItem>
             </SelectContent>

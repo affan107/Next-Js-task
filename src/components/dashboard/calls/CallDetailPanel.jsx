@@ -195,24 +195,26 @@ function Transcript({ messages }) {
   );
 }
 
-export default function CallDetailPanel({ call = MOCK_CALL_DETAIL, onClose }) {
+export default function CallDetailPanel({ call = MOCK_CALL_DETAIL, onClose, onMaximize }) {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-start justify-between">
         <div className="flex flex-col gap-0.5">
           <div className="flex items-center gap-2 mb-1">
+            < Maximize2
+              onClick={onMaximize}
+              size={13}
+              className="text-slate-800"
+              strokeWidth={1.8}
+            />
             <button
               onClick={onClose}
               title="Close panel"
               className="text-slate-800"
             >
-              <Maximize2 size={13} strokeWidth={1.8} />
+              
+              <PanelLeftOpen size={13} strokeWidth={1.8} />
             </button>
-            <PanelLeftOpen
-              size={13}
-              className="text-slate-800"
-              strokeWidth={1.8}
-            />
           </div>
           <span className="text-xs font-semibold text-[#4A24AB]">
             Call Summary

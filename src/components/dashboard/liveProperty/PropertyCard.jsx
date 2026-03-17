@@ -6,27 +6,20 @@ import { Card } from "@/components/ui/card";
 import { ArrowRight, CalendarPlus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import { AlignJustify, PhoneCall, ContactRound} from "lucide-react";
+import { AlignJustify, PhoneCall, ContactRound } from "lucide-react";
+import { useState } from "react";
+import CreateBatchModal from "../batches/CreateBatchModal";
 
-/**
- * PropertyCard
- *
- * Props:
- *  - image: string (src)
- *  - headline: string
- *  - description: string
- *  - onCreateEvent: () => void
- *  - onJump: () => void
- *  - className: string (optional)
- */
+
 export default function PropertyCard({
   image = "/house.png",
   headline = "Headline",
   description = "Please click to read more about this property. Maecenas condimentum tincidunt.",
-  onCreateEvent,
   onJump,
-  className,
 }) {
+
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <Card
       className={cn(
@@ -48,20 +41,28 @@ export default function PropertyCard({
         </p>
 
         {/* Actions */}
-        <div className="flex items-center justify-center gap-2 mt-1">
+        <div className="flex gap-2 mt-1">
           <Button
             size="sm"
-            onClick={onCreateEvent}
-            className="h-7 text-sm font-medium bg-[#4A24AB] text-[#FFFFFF] rounded-sm px-2"
+            onClick={() => setOpenModal(true)}
+            className="flex-1 justify-center h-7 text-sm font-medium bg-[#4A24AB] text-[#FFFFFF] rounded-sm px-2"
           >
             Create Batch
           </Button>
+          <CreateBatchModal
+            open={openModal}
+            onClose={() => setOpenModal(false)}
+            onSchedule={(newBatch) => {
+              onSchedule?.(newBatch);
+              setOpenModal(false);
+            }}
+          />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 size="sm"
                 onClick={onJump}
-                className=" h-7 text-sm font-medium border-2 border-[#4A24AB] bg-white text-[#4A24AB] rounded-sm px-2"
+                className="flex-1 justify-center h-7 text-sm font-medium border-2 border-[#4A24AB] bg-white text-[#4A24AB] rounded-sm px-2"
               >
                 Jump to
                 <ArrowRight size={11} className="ml-1 shrink-0" />
@@ -70,15 +71,21 @@ export default function PropertyCard({
             <DropdownMenuContent className="w-56 p-1">
               <DropdownMenuItem className="text-sm font-medium">
                 <AlignJustify className="text-[#4A24AB]" />
-                Batches
+                <a href="/dashboard/batches">
+                  Batches
+                </a>
               </DropdownMenuItem>
               <DropdownMenuItem className="text-sm font-medium">
                 <PhoneCall className="text-[#4A24AB]" />
-                Calls
+                <a href="/dashboard/calls">
+                  Calls
+                </a>
               </DropdownMenuItem>
               <DropdownMenuItem className="text-sm font-medium">
                 <ContactRound className="text-[#4A24AB]" />
-                Contacts
+                <a href="/dashboard/contacts">
+                  Contacts 
+                </a>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

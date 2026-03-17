@@ -144,13 +144,14 @@ export default function BatchSummaryPanel({
   onCopyFailed,
   onCancelBatch,
   onClose,
+  onMaximize 
 }) {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <button
-            onClick={onClose}
+            onClick={onMaximize}
             title="Close panel"
             className="text-slate-400 hover:text-slate-700 transition-colors"
           >
@@ -160,7 +161,7 @@ export default function BatchSummaryPanel({
             Batch Summary
           </span>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
           <Button
             onClick={onCopyFailed}
             variant="default"
@@ -170,7 +171,7 @@ export default function BatchSummaryPanel({
             Copy failed to new batch
           </Button>
           <Button
-            onClick={onCancelBatch}
+            onClick={onClose}
             size="sm"
             className="h-10 px-4 bg-red-500 text-white text-sm font-medium rounded-md"
           >

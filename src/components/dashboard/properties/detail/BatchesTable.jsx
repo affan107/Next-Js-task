@@ -31,12 +31,12 @@ function MiniTable({ columns, rows, renderCell }) {
               {columns.map((col) => (
                 <th
                   key={col.key}
-                  className="px-3 py-2 text-left font-semibold text-slate-5 00 whitespace-nowrap"
+                  className="px-3 py-2 text-left font-semibold text-slate-500"
                 >
                   {col.label}
                 </th>
               ))}
-              <th className="px-3 py-2 text-left font-semibold text-slate-500 w-8">
+              <th className="px-3 py-2 text-left font-semibold text-slate-500 ">
                 More
               </th>
             </tr>

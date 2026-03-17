@@ -10,6 +10,7 @@ export default function CallsPage() {
   const [calls, setCalls]         = useState(MOCK_CALLS);
   const [query, setQuery]         = useState("");
   const [selectedId, setSelectedId] = useState(null);
+  const [maximized, setMaximized] = useState(false);
  
   // Look up full call object by id
   const selectedCall = selectedId ? calls.find((c) => c.id === selectedId) ?? null : null;
@@ -34,6 +35,7 @@ export default function CallsPage() {
  
       <div className="flex flex-1 min-h-0">
         {/* Table — shrinks when panel open */}
+        {!maximized && (
         <div className={`${selectedCall ? "flex-[0_0_40%]" : "flex-1"} border-r border-gray-100 overflow-auto`}>
           <CallsTable
             calls={filtered}
@@ -42,14 +44,16 @@ export default function CallsPage() {
             onRowClick={(c) => setSelectedId((prev) => (prev === c.id ? null : c.id))}
           />
         </div>
+        )}
  
         {/* Detail panel — only when a call is selected */}
         {selectedCall && (
-          <div className="flex-[0_0_60%] overflow-y-auto">
+          <div className={maximized ? "flex-1 overflow-y-auto" : "flex-[0_0_60%] overflow-y-auto"}>
             <div className="border border-slate-200 rounded-md m-4 p-5">
               <CallDetailPanel
                 key={selectedId}      
                 call={selectedCall}
+                onMaximize={() => setMaximized((v) => !v)}
                 onClose={() => setSelectedId(null)}  
               />
             </div>

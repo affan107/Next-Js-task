@@ -63,7 +63,7 @@ function StatusPill({ value, onChange }) {
     <Select value={value} onValueChange={onChange}>
       <SelectTrigger
         className={cn(
-          "w-70 h-9 text-[10px] font-semibold rounded-md border-0 focus:ring-0 px-2",
+          "w-full h-10 text-sm font-semibold rounded-md border border-[#CBD5E1]",
           value === "Live" && "bg-green-100 text-green-700",
           value === "Pre-Launched" && "bg-purple-100 text-purple-700",
           value === "Closed" && "bg-red-100 text-red-600",
@@ -90,10 +90,10 @@ function KeyDateRow({ date, type, onDateChange, onTypeChange, onRemove }) {
       <Input
         value={date}
         onChange={(e) => onDateChange(e.target.value)}
-        className="w-54 h-9 text-xs rounded-md border-gray-200"
+        className="w-54 h-9 text-xs rounded-md border border-[#CBD5E1]"
       />
       <Select value={type} onValueChange={onTypeChange}>
-        <SelectTrigger className="w-44 h-9 text-xs rounded-md border-gray-200 shrink-0">
+        <SelectTrigger className="w-44 h-9 text-xs rounded-md border border-[#CBD5E1]">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
@@ -106,22 +106,14 @@ function KeyDateRow({ date, type, onDateChange, onTypeChange, onRemove }) {
       </Select>
       <button
         onClick={onRemove}
-        className="text-gray-300 hover:text-red-400 transition-colors shrink-0"
+        className="text-[#EF4444]"
       >
         <X size={13} />
       </button>
     </div>
   );
 }
- 
-/**
- * Props:
- *  - open: boolean
- *  - onClose: () => void
- *  - onSchedule: (formData) => void
- *  - mode: "new" | "edit"
- *  - initialData?: object  — pre-fill for edit mode
- */
+
 export default function CampaignModal({
   open,
   onClose,
@@ -136,7 +128,6 @@ export default function CampaignModal({
 
   if (!open) return null;
 
-  // ── helpers ──
   const setField = (key, value) =>
     setForm((prev) => ({ ...prev, [key]: value }));
 
@@ -161,12 +152,12 @@ export default function CampaignModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-[4px]"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-[2px]"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="bg-white rounded-2xl border-slate-200 w-175 h-163  flex flex-col overflow-hidden">
+      <div className="bg-white rounded-2xl border border-[#CBD5E1] w-187 h-155  flex flex-col overflow-hidden">
         <div className="flex items-center justify-between px-5 pt-5 pb-3">
           <h2 className="text-sm font-bold text-[#4A24AB]">
             {isEdit ? "Edit Campaign" : "New Campaign"}
@@ -178,7 +169,7 @@ export default function CampaignModal({
               value={form.campaign}
               onChange={(e) => setField("campaign", e.target.value)}
               placeholder={isEdit ? "" : "Campaign Name"}
-              className="w-146 h-10 text-base rounded-md border-[#CBD5E1]  placeholder:text-gray-300"
+              className="w-full h-10 text-base rounded-md border-[#CBD5E1]  placeholder:text-[#94A3B8]"
             />
           </ModalField>
           <div className="grid grid-cols-2 gap-3">
@@ -187,7 +178,7 @@ export default function CampaignModal({
                 value={form.type}
                 onValueChange={(v) => setField("type", v)}
               >
-                <SelectTrigger className="w-80 h-9 text-base rounded-md border-gray-200">
+                <SelectTrigger className="w-full h-10 text-base rounded-md border border-[#CBD5E1]">
                   <SelectValue placeholder="About Type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -202,7 +193,6 @@ export default function CampaignModal({
 
             <ModalField label="Status">
               <StatusPill
-                className="w-80 h-9"
                 value={form.status}
                 onChange={(v) => setField("status", v)}
               />
@@ -213,7 +203,7 @@ export default function CampaignModal({
               value={form.listingUrl}
               onChange={(e) => setField("listingUrl", e.target.value)}
               placeholder="URL here"
-              className="w-146 h-10 text-base rounded-md border-gray-200 placeholder:text-gray-300"
+              className="w-full h-10 text-base rounded-md border border-[#CBD5E1] placeholder:text-[#94A3B8]"
             />
           </ModalField>
           <div className="grid grid-cols-2 gap-3">
@@ -222,7 +212,7 @@ export default function CampaignModal({
                 value={form.priceMin}
                 onChange={(e) => setField("priceMin", e.target.value)}
                 placeholder="Add minimum price"
-                className="w-80 h-9  text-base rounded-md border-gray-200 placeholder:text-gray-300"
+                className="w-full h-10 text-base rounded-md border border-[#CBD5E1] placeholder:text-[#94A3B8]"
               />
             </ModalField>
             <ModalField label="Price Guide (Max)">
@@ -230,7 +220,7 @@ export default function CampaignModal({
                 value={form.priceMax}
                 onChange={(e) => setField("priceMax", e.target.value)}
                 placeholder="Add maximum price"
-                className="w-80 h-9  text-xs rounded-md border-gray-200 placeholder:text-gray-300"
+                className="w-full h-10 text-xs rounded-md border border-[#CBD5E1] placeholder:text-[#94A3B8]"
               />
             </ModalField>
           </div>
@@ -259,7 +249,7 @@ export default function CampaignModal({
             </Button>
           </div>
         </div>
-        <div className="flex items-center justify-end gap-2 px-5 py-4 border-t border-gray-100">
+        <div className="flex items-center justify-end gap-2 px-5 py-4 border border-[#CBD5E1]">
           <Button
             variant="outline"
             size="sm"

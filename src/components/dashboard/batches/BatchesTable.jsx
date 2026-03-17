@@ -73,7 +73,7 @@ function BatchRowActions({ batchId, onView, onEdit, onDelete }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex items-center justify-center w-7 h-7 rounded-md text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition-all">
+        <button className="flex items-center justify-center w-7 h-7 rounded-md text-slate-800">
           <MoreHorizontal size={15} strokeWidth={1.8} />
         </button>
       </DropdownMenuTrigger>

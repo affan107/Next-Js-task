@@ -40,7 +40,7 @@ function FieldLabel({ children }) {
   );
 }
 
-export default function BotSummaryPanel({ bot, onClose, onSave }) {
+export default function BotSummaryPanel({ bot, onClose, onSave, onMaximize }) {
   const [editing, setEditing] = useState(false);
   const [testCallOpen, setTestCallOpen] = useState(false);
 
@@ -80,18 +80,19 @@ export default function BotSummaryPanel({ bot, onClose, onSave }) {
               Bot Summary
             </span>
             <div className="flex items-center gap-2 mb-1">
+              <Maximize2
+                onClick={onMaximize}
+                size={13}
+                className="text-slate-400"
+                strokeWidth={1.8}
+              />
               <button
                 onClick={onClose}
                 title="Close panel"
                 className="text-slate-400 hover:text-slate-700 transition-colors"
               >
-                <Maximize2 size={13} strokeWidth={1.8} />
+                <PanelLeftOpen size={13} strokeWidth={1.8} />
               </button>
-              <PanelLeftOpen
-                size={13}
-                className="text-slate-400"
-                strokeWidth={1.8}
-              />
             </div>
             <h2 className="text-xl font-bold text-slate-900">
               {bot.summaryTitle ?? bot.activity}

@@ -22,7 +22,7 @@ export default function CreateAccountPage() {
           <span className="text-3xl y font-normal text-[#9B9B9B]">works</span>
         </div>
 
-        <Card className="w-full rounded-2xl shadow-sm border-0">
+        <Card className="w-105 rounded-lg shadow-sm border-0">
           <CardHeader className="space-y-1 pb-4 pt-6 px-6">
             <CardTitle className="text-lg font-semibold text-center text-gray-900">
               Create an account
@@ -107,7 +107,7 @@ export default function CreateAccountPage() {
               >
                 Sign up with Email
               </Button>
-              <div className="relative my-2">
+              <div className="relative">
                 <div className="absolute inset-0 flex items-center">
                   <Separator className="w-full" />
                 </div>
@@ -143,7 +143,7 @@ export default function CreateAccountPage() {
                 Sign in with Google
               </Button>
               <Link
-                href="/auth/register"
+                href="/auth/login"
                 className="block w-full text-center text-xs text-slate-800 pt-1"
               >
                 Already have an account?{" "}

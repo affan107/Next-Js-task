@@ -15,6 +15,8 @@ import { MOCK_BOTS } from "../../../components/dashboard/bots/botsMockData";
 export default function BotsPage() {
   const [query, setQuery] = useState("");
   const [selectedBot, setSelectedBot] = useState(null);
+  const [maximized, setMaximized] = useState(false);
+
 
   const filtered = MOCK_BOTS.filter((b) => {
     const q = query.toLowerCase();
@@ -42,6 +44,7 @@ export default function BotsPage() {
 
       <div className="flex flex-1 min-h-0">
         {/* Table — shrinks when panel is open */}
+        {!maximized && (
         <div
           className={
             selectedBot
@@ -58,15 +61,17 @@ export default function BotsPage() {
             }}
           />
         </div>
+        )}
 
         {/* Summary / Edit panel — only shown when a row is selected */}
         {selectedBot && (
-          <div className="flex-[0_0_40%] overflow-y-auto">
+          <div className={maximized? "flex-1 overflow-y-auto": "flex-[0_0_40%] overflow-y-auto"}>
             <div className="border border-slate-200 rounded-md m-4 p-5">
               <BotSummaryPanel
                 key={selectedBot.id} // re-mounts cleanly on row change
                 bot={selectedBot}
                 onClose={() => setSelectedBot(null)}
+                onMaximize={() => setMaximized((v) => !v)}
                 onSave={handleSave}
               />
             </div>

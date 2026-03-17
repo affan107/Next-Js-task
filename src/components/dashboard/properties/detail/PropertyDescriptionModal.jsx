@@ -60,27 +60,22 @@ export default function PropertyDescriptionModal() {
       </DialogTrigger>
 
       <DialogContent className="max-w-xl p-0 gap-0 rounded-2xl overflow-hidden border-0">
-        {/* ── Header ── */}
         <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-gray-100">
           <div className="flex items-center gap-2">
-            <PanelLeftOpen size={15} strokeWidth={1.8} />
             <span className="text-base font-semibold text-slate-700">
               Property Description
             </span>
-            {/* <ChevronDown size={14} className="text-slate-400" /> */}
           </div>
         </div>
 
-        {/* ── Form body ── */}
         <div className="flex flex-col gap-4 px-6 py-5">
-          {/* Address */}
           <div className="grid grid-cols-[90px_1fr] items-center gap-3">
             <span className="text-sm font-medium text-[#4A24AB]">Address</span>
             <Input
               value={form.address}
               onChange={set("address")}
               placeholder="Address Here"
-              className="h-9 text-sm rounded-md border-slate-200 focus-visible:ring-[#4A24AB] placeholder:text-slate-300"
+              className="h-9 text-sm rounded-md border-[#CBD5E1] focus-visible:ring-[#4A24AB] placeholder:text-[#94A3B8]"
             />
           </div>
 
@@ -91,13 +86,13 @@ export default function PropertyDescriptionModal() {
               value={form.suburb}
               onChange={set("suburb")}
               placeholder="Suburb Here"
-              className="h-9 text-sm rounded-md border-slate-200 focus-visible:ring-[#4A24AB] placeholder:text-slate-300"
+              className="h-9 text-sm rounded-md border-[#CBD5E1] focus-visible:ring-[#4A24AB] placeholder:text-[#94A3B8]"
             />
           </div>
           <div className="grid grid-cols-[90px_1fr] items-center gap-3">
             <span className="text-sm font-medium text-[#4A24AB]">Agent</span>
             <Select value={form.agent} onValueChange={set("agent")}>
-              <SelectTrigger className="h-9 text-sm rounded-md border-slate-200 focus:ring-[#4A24AB]">
+              <SelectTrigger className="w-full h-9 text-sm rounded-md border-[#CBD5E1] focus:ring-[#4A24AB] text-[#94A3B8]">
                 <SelectValue placeholder="Select Agent" />
               </SelectTrigger>
               <SelectContent>
@@ -118,7 +113,7 @@ export default function PropertyDescriptionModal() {
               onChange={set("description")}
               placeholder="Description Here"
               rows={4}
-              className="w-80 h-18 text-sm rounded-md border-[#CBD5E1] focus-visible:ring-[#4A24AB] placeholder:text-slate-300"
+              className="w-85 h-18 text-sm rounded-md border-[#CBD5E1] focus-visible:ring-[#4A24AB] placeholder:text-[#94A3B8]"
             />
           </div>
 

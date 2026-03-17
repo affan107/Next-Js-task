@@ -31,7 +31,7 @@ export function CallStatusBadge({ status, className }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold border whitespace-nowrap",
+        "inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold border",
         styles,
         className,
       )}
@@ -158,7 +158,7 @@ export default function CallsTable({
                   key={col.key}
                   onClick={() => col.sortable && handleSort(col.key)}
                   className={cn(
-                    "px-3 py-2.5 text-xs font-semibold text-slate-500 whitespace-nowrap select-none text-left",
+                    "px-3 py-2.5 text-xs font-semibold text-slate-500 select-none text-left",
                     col.sortable && "cursor-pointer hover:text-slate-700",
                   )}
                 >
@@ -198,7 +198,7 @@ export default function CallsTable({
                   {visibleColumns.map((col) => (
                     <td
                       key={col.key}
-                      className="px-3 py-2.5 text-xs text-slate-800 whitespace-nowrap"
+                      className="px-3 py-2.5 text-xs text-slate-800"
                     >
                       {col.key === "status" ? (
                         <CallStatusBadge status={call.status} />

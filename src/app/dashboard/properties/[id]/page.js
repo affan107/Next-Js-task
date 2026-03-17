@@ -17,56 +17,64 @@ import PropertyDescriptionForm from "../../../../components/dashboard/properties
 
 export default function PropertyDetailPage() {
   const { id } = useParams();
-  const [selectedId, setSelectedId] = useState(Number(id) || 1);
+  const [selectedId, setSelectedId] = useState(Number(id) || null);
   const [editingDescription, setEditingDescription] = useState(false);
+  const [maximized, setMaximized] = useState(false);
 
-  const property =
-    MOCK_PROPERTIES.find((p) => p.id === selectedId) ?? MOCK_PROPERTIES[0];
+  const property = selectedId
+    ? MOCK_PROPERTIES.find((p) => p.id === selectedId) ?? null
+    : null;
 
   return (
     <div className="flex flex-col h-full bg-white rounded-xl shadow-sm overflow-hidden">
       <PropertiesTopbar onNewProperty={() => console.log("new property")} />
       <div className="flex flex-1 min-h-0 gap-6 px-6">
-        {/* Left panel - 30% */}
-        <div className="flex-[0_0_30%] border-r border-gray-100 flex flex-col overflow-x-auto">
-          <PropertiesTable
-            properties={MOCK_PROPERTIES}
-            selectedId={selectedId}
-            onRowClick={(p) => {
-              setSelectedId(p.id);
-              setEditingDescription(false);
-            }}
-          />
-        </div>
 
-        {/* Right panel - 70% */}
-        <div className="flex-[0_0_70%] overflow-y-auto">
-          <div className="border border-slate-300 rounded-md p-6 flex flex-col gap-6">
-            {editingDescription ? (
-              <PropertyDescriptionForm
-                property={property}
-                onSave={(data) => {
-                  console.log("Save:", data);
-                  setEditingDescription(false);
-                }}
-                onCancel={() => setEditingDescription(false)}
-              />
-            ) : (
-              <PropertyDescription
-                property={property}
-                onEdit={() => setEditingDescription(true)}
-              />
-            )}
-            <Separator />
-            <CampaignInfo property={property} />
-            <Separator />
-            <KeyDates />
-            <Separator />
-            <AIInsightsCard />
-            <BatchesTable />
-            <CallsTable />
+        {/* Left panel — always visible */}
+        {!maximized && (
+          <div className={`${property ? "flex-[0_0_30%]" : "flex-1"} border-r border-gray-100 flex flex-col overflow-auto`}>
+            <PropertiesTable
+              properties={MOCK_PROPERTIES}
+              selectedId={selectedId}
+              onRowClick={(p) => {
+                setSelectedId((prev) => (prev === p.id ? null : p.id));
+                setEditingDescription(false);
+              }}
+            />
           </div>
-        </div>
+        )}
+
+        {/* Right panel — only when a property is selected */}
+        {property && (
+          <div className={maximized ? "flex-1 overflow-y-auto" : "flex-[0_0_70%] overflow-y-auto"}>
+            <div className="border border-slate-300 rounded-md p-6 flex flex-col gap-6">
+              {editingDescription ? (
+                <PropertyDescriptionForm
+                  property={property}
+                  maximized={maximized}
+                  onMaximize={() => setMaximized((v) => !v)}
+                  onClose={() => { setSelectedId(null); setMaximized(false); }}
+                  onSave={(data) => { console.log("Save:", data); setEditingDescription(false); }}
+                  onCancel={() => setEditingDescription(false)}
+                />
+              ) : (
+                <PropertyDescription
+                  property={property}
+                  maximized={maximized}
+                  onMaximize={() => setMaximized((v) => !v)}
+                  onClose={() => { setSelectedId(null); setMaximized(false); }} 
+                  onEdit={() => setEditingDescription(true)}
+                />
+              )}
+              <CampaignInfo property={property} />
+              <KeyDates />
+              <AIInsightsCard />
+              <BatchesTable />
+              <CallsTable />
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );
