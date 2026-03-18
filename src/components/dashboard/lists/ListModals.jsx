@@ -45,25 +45,25 @@ function PropStatusBadge({ status }) {
   );
 }
 
-// ── Shared contact status badge ───────────────────────────────────────────────
-const CONTACT_STATUS_STYLES = {
-  "Looking to purchase": "bg-[#C8FFDC] text-[#15813D]",
-  "Looking to sell": "bg-[#BFE2FF] text-[#2C96F0]",
-  "Not looking": "bg-[#FFC5C5] text-[#B42941]",
-};
-function ContactStatusBadge({ status }) {
-  const s = CONTACT_STATUS_STYLES[status] ?? "bg-gray-100 text-gray-500";
-  return (
-    <span
-      className={cn(
-        "inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold border whitespace-nowrap",
-        s,
-      )}
-    >
-      {status}
-    </span>
-  );
-}
+// // ── Shared contact status badge ───────────────────────────────────────────────
+// const CONTACT_STATUS_STYLES = {
+//   "Looking to purchase": "bg-[#C8FFDC] text-[#15813D]",
+//   "Looking to sell": "bg-[#BFE2FF] text-[#2C96F0]",
+//   "Not looking": "bg-[#FFC5C5] text-[#B42941]",
+// };
+// function ContactStatusBadge({ status }) {
+//   const s = CONTACT_STATUS_STYLES[status] ?? "bg-gray-100 text-gray-500";
+//   return (
+//     <span
+//       className={cn(
+//         "inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold border whitespace-nowrap",
+//         s,
+//       )}
+//     >
+//       {status}
+//     </span>
+//   );
+// }
 
 // ── Shared modal shell ────────────────────────────────────────────────────────
 function ModalShell({
@@ -78,15 +78,14 @@ function ModalShell({
   if (!open) return null;
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-[4px]"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-[2px]"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="bg-white rounded-2xl shadow-xl w-[860px] max-h-[82vh] flex flex-col overflow-hidden">
-        {/* Header */}
+      <div className="bg-white rounded-2xl shadow-xl w-260 max-h-[82vh] flex flex-col overflow-hidden">
         <div className="flex items-center justify-between px-6 pt-5 pb-3 shrink-0">
-          <h2 className="text-sm font-bold text-[#4A24AB]">{title}</h2>
+          <h2 className="text-lg font-semibold text-[#4A24AB]">{title}</h2>
           {searchable && (
             <div className="flex items-center gap-2 border border-[#CBD5E1] rounded-lg px-3 h-8 w-56 bg-gray-50">
               <Search size={12} className="text-gray-400 shrink-0" />
@@ -113,7 +112,7 @@ function ModalShell({
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 1. ADD FROM PROPERTIES MODAL (Image 4)
+// 1. ADD FROM PROPERTIES MODAL
 // ─────────────────────────────────────────────────────────────────────────────
 const PROP_COLS = [
   { key: "address", label: "Address" },
@@ -160,18 +159,17 @@ export function AddFromPropertiesModal({ open, onClose, onAdd }) {
       footer={
         <>
           <Button
-            variant="outline"
-            size="sm"
+            variant="default"
             onClick={onClose}
-            className="h-9 px-5 text-sm border-slate-200 text-slate-600 rounded-md"
+            className="w-30 h-10 px-5 text-sm font-semibold border-[#4A24AB] text-[#4A24AB] bg-white rounded-md"
           >
             Cancel
           </Button>
           <Button
-            size="sm"
+            variant="default"
             onClick={handleAdd}
-            disabled={selected.size === 0}
-            className="h-9 px-5 bg-[#4A24AB] hover:bg-[#3b1d8a] text-white text-sm font-semibold rounded-md disabled:opacity-40"
+           disabled={selected.size === 0}
+            className="w-26 h-10 px-5 bg-[#4A24AB] text-white text-sm font-semibold rounded-md disabled:opacity-40"
           >
             Add
           </Button>
@@ -258,7 +256,7 @@ export function AddFromPropertiesModal({ open, onClose, onAdd }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 2. ADD FROM EXISTING LIST MODAL (Image 5)
+// 2. ADD FROM EXISTING LIST MODAL
 // ─────────────────────────────────────────────────────────────────────────────
 const LIST_COLS = [
   { key: "name", label: "List" },
@@ -306,18 +304,17 @@ export function AddFromExistingListModal({
       footer={
         <>
           <Button
-            variant="outline"
-            size="sm"
+            variant="default"
             onClick={onClose}
-            className="h-9 px-5 text-sm border-slate-200 text-slate-600 rounded-md"
+            className="w-30 h-10 px-5 text-sm font-semibold border-[#4A24AB] text-[#4A24AB] bg-white rounded-md"
           >
             Cancel
           </Button>
           <Button
-            size="sm"
+            variant="default"
             onClick={handleAdd}
             disabled={selected.size === 0}
-            className="h-9 px-5 bg-[#4A24AB] hover:bg-[#3b1d8a] text-white text-sm font-semibold rounded-md disabled:opacity-40"
+            className="w-26 h-10 px-5 bg-[#4A24AB] text-white text-sm font-semibold rounded-md disabled:opacity-40"
           >
             Add
           </Button>
@@ -396,29 +393,29 @@ export function AddFromExistingListModal({
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 3. UPLOAD OPTION MODAL (Image 6)
+// 3. UPLOAD OPTION MODAL
 // ─────────────────────────────────────────────────────────────────────────────
 export function UploadOptionModal({ open, onClose, onUploadFile }) {
   if (!open) return null;
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-[4px]"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-[2px]"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="bg-white rounded-2xl shadow-xl w-[400px] p-7 flex flex-col gap-5">
-        <h2 className="text-sm font-bold text-[#4A24AB]">
+      <div className="bg-white rounded-2xl shadow-xl w-135 p-7 flex flex-col gap-5">
+        <h2 className="text-lg font-semibold text-[#4A24AB]">
           Add Contacts from Existing
         </h2>
-        <div className="flex flex-col gap-3">
+        <div className="flex gap-3">
           <button
             onClick={() => {
-              onClose(); /* trigger CSV download */
+              onClose(); 
             }}
-            className="flex items-center gap-2.5 px-4 h-11 rounded-lg border border-slate-200 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors"
+            className="flex items-center gap-2.5 px-4 w-60 h-11 rounded-md border border-[#4A24AB] text-[#4A24AB] text-sm font-medium"
           >
-            <Download size={14} className="text-slate-500" strokeWidth={1.8} />
+            <Download size={14} strokeWidth={1.8} />
             Download CSV template
           </button>
           <button
@@ -426,7 +423,7 @@ export function UploadOptionModal({ open, onClose, onUploadFile }) {
               onClose();
               onUploadFile?.();
             }}
-            className="flex items-center gap-2.5 px-4 h-11 rounded-lg bg-[#4A24AB] hover:bg-[#3b1d8a] text-sm font-medium text-white transition-colors"
+            className="flex items-center justify-center gap-2.5 px-4 w-60 h-11 rounded-md bg-[#4A24AB] text-sm font-medium text-white transition-colors"
           >
             <Upload size={14} strokeWidth={1.8} />
             Upload File
@@ -438,7 +435,7 @@ export function UploadOptionModal({ open, onClose, onUploadFile }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 4. UPLOAD FILE (drag & drop) MODAL (Image 7)
+// 4. UPLOAD FILE (drag & drop) MODAL
 // ─────────────────────────────────────────────────────────────────────────────
 export function UploadFileModal({ open, onClose, onFileSelected }) {
   const [dragging, setDragging] = useState(false);
@@ -453,13 +450,13 @@ export function UploadFileModal({ open, onClose, onFileSelected }) {
   if (!open) return null;
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-[4px]"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-[2px]"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="bg-white rounded-2xl shadow-xl w-[420px] p-7 flex flex-col gap-4">
-        <h2 className="text-sm font-bold text-[#4A24AB]">
+      <div className="bg-white rounded-2xl shadow-xl w-127 p-7 flex flex-col gap-4">
+        <h2 className="text-lg font-semibold text-[#4A24AB]">
           Add Contacts from Existing
         </h2>
 
@@ -476,10 +473,8 @@ export function UploadFileModal({ open, onClose, onFileSelected }) {
             handleFile(e.dataTransfer.files[0]);
           }}
           className={cn(
-            "flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed py-10 px-6 transition-colors",
-            dragging
-              ? "border-[#4A24AB] bg-purple-50"
-              : "border-slate-200 bg-slate-50",
+            "flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed py-6 px-3 border-[#4A24AB]"
+             
           )}
         >
           <CloudUpload size={36} className="text-[#4A24AB]" strokeWidth={1.5} />
@@ -512,7 +507,7 @@ export function UploadFileModal({ open, onClose, onFileSelected }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 5. ADD CONTACTS (Name + Phone mini-table) MODAL (Image 8)
+// 5. ADD CONTACTS (Name + Phone mini-table) MODAL 
 // ─────────────────────────────────────────────────────────────────────────────
 export function AddContactsModal({ open, onClose, onAdd, onDelete }) {
   const [selected, setSelected] = useState(new Set([1, 3])); // Tom Cruise + Hugh Jackman pre-checked
@@ -546,15 +541,14 @@ export function AddContactsModal({ open, onClose, onAdd, onDelete }) {
   if (!open) return null;
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-[4px]"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-[2px]"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
       <div className="bg-white rounded-2xl shadow-xl w-[500px] max-h-[70vh] flex flex-col overflow-hidden">
-        {/* Header */}
         <div className="flex items-center justify-between px-5 pt-5 pb-3 shrink-0">
-          <h2 className="text-sm font-bold text-[#4A24AB]">Add Contacts</h2>
+          <h2 className="text-lg font-semibold text-[#4A24AB]">Add Contacts</h2>
           <div className="flex items-center gap-2 border border-[#CBD5E1] rounded-lg px-3 h-8 w-48 bg-gray-50">
             <Search size={12} className="text-gray-400 shrink-0" />
             <input
@@ -566,7 +560,6 @@ export function AddContactsModal({ open, onClose, onAdd, onDelete }) {
           </div>
         </div>
 
-        {/* Table */}
         <div className="flex-1 overflow-auto px-5">
           <table className="min-w-full text-xs border-collapse">
             <thead className="sticky top-0 bg-white z-10">
@@ -636,13 +629,12 @@ export function AddContactsModal({ open, onClose, onAdd, onDelete }) {
           </table>
         </div>
 
-        {/* Footer */}
-        <div className="flex items-center justify-end gap-2 px-5 py-4 border-t border-gray-100 shrink-0">
+        <div className="flex items-center justify-end gap-2 px-5 py-4 shrink-0">
           <Button
             variant="outline"
             size="sm"
             onClick={onClose}
-            className="h-9 px-4 text-sm border-slate-200 text-slate-600 rounded-md"
+            className="h-10 px-4 font-semibold text-sm border-[#4A24AB] text-[#4A24AB] rounded-md"
           >
             Cancel
           </Button>
@@ -650,7 +642,7 @@ export function AddContactsModal({ open, onClose, onAdd, onDelete }) {
             size="sm"
             onClick={handleDelete}
             disabled={selected.size === 0}
-            className="h-9 px-4 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold rounded-md disabled:opacity-40"
+            className="h-10 px-4 bg-red-500 text-white text-sm font-semibold rounded-md disabled:opacity-40"
           >
             Delete
           </Button>
@@ -658,7 +650,7 @@ export function AddContactsModal({ open, onClose, onAdd, onDelete }) {
             size="sm"
             onClick={handleAdd}
             disabled={selected.size === 0}
-            className="h-9 px-4 bg-[#4A24AB] hover:bg-[#3b1d8a] text-white text-sm font-semibold rounded-md disabled:opacity-40"
+            className="h-10 px-4 bg-[#4A24AB] text-white text-sm font-semibold rounded-md disabled:opacity-40"
           >
             Add
           </Button>

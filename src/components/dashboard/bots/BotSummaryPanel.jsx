@@ -83,13 +83,13 @@ export default function BotSummaryPanel({ bot, onClose, onSave, onMaximize }) {
               <Maximize2
                 onClick={onMaximize}
                 size={13}
-                className="text-slate-400"
+                className="text-slate-800"
                 strokeWidth={1.8}
               />
               <button
                 onClick={onClose}
                 title="Close panel"
-                className="text-slate-400 hover:text-slate-700 transition-colors"
+                className="text-slate-800"
               >
                 <PanelLeftOpen size={13} strokeWidth={1.8} />
               </button>

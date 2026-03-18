@@ -7,9 +7,9 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
 const ROLE_STYLES = {
-  Owner: "bg-slate-700 text-white",
-  "Primary Owner": "bg-[#F59E0B] text-white",
-  Member: "bg-[#4A24AB] text-white",
+  Owner: "bg-[#111827] text-white",
+  "Primary Owner": "bg-[#EAB308] text-white",
+  Member: "bg-[#3B82F6] text-white",
 };
 
 function RoleBadge({ role }) {
@@ -28,12 +28,12 @@ function RoleBadge({ role }) {
 function StatusBadge({ status }) {
   const style =
     status === "Active"
-      ? "bg-[#C8FFDC] text-[#15813D] border-[#C8FFDC]"
+      ? "bg-[#22C55E] text-white"
       : "bg-gray-100 text-gray-500 border-gray-200";
   return (
     <span
       className={cn(
-        "inline-flex items-center px-2.5 py-0.5 rounded-md text-[10px] font-semibold border whitespace-nowrap",
+        "inline-flex items-center px-2.5 py-0.5 w-14 h-6 rounded-md text-[10px] font-semibold border",
         style,
       )}
     >
@@ -44,7 +44,7 @@ function StatusBadge({ status }) {
 
 function Section({ title, subtitle, children }) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 border px-6 py-6 border-[#ECF0F5] rounded-md">
       <div>
         <h3 className="text-sm font-bold text-[#4A24AB]">{title}</h3>
         {subtitle && (
@@ -96,6 +96,7 @@ export default function TeamSettingsPage() {
   const [phone, setPhone] = useState("");
   const [memberSearch, setMemberSearch] = useState("");
   const [inviteSearch, setInviteSearch] = useState("");
+  const [avatarSrc, setAvatarSrc] = useState(null);
   const fileRef = useRef(null);
 
   const filteredMembers = MOCK_MEMBERS.filter(
@@ -104,17 +105,22 @@ export default function TeamSettingsPage() {
       m.email.toLowerCase().includes(memberSearch.toLowerCase()),
   );
 
+  const handleAvatarChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) setAvatarSrc(URL.createObjectURL(file));
+  };
+
   return (
     <div className="flex flex-col h-full bg-white rounded-xl shadow-sm overflow-hidden">
       {/* Topbar */}
       <div className="flex items-center gap-3 px-5 py-3 border-b border-gray-100 shrink-0">
         <span className="text-sm font-medium text-gray-700">Team Settings</span>
-        <div className="ml-auto w-72 h-9 flex items-center gap-2 px-3 rounded-lg border border-slate-200 bg-gray-50">
-          <Search size={13} className="text-gray-400 shrink-0" />
+        <div className="ml-auto w-72 h-9 flex items-center gap-2 px-3 rounded-lg border border-[#EBEAFD] bg-white">
+          <Search size={13} className="text-[#4F46E5]" />
           <input
             type="text"
             placeholder="Type a command or search..."
-            className="bg-transparent text-sm placeholder:text-gray-400 outline-none w-full"
+            className="text-sm placeholder:text-slate-400 outline-none w-full"
           />
         </div>
       </div>
@@ -127,35 +133,42 @@ export default function TeamSettingsPage() {
             title="Team Logo"
             subtitle="Update your team's logo to make it easier to identify."
           >
-            <div className="flex items-center gap-4">
-              <div
-                onClick={() => fileRef.current?.click()}
-                className="w-16 h-16 rounded-full border-2 border-dashed border-[#4A24AB] flex items-center justify-center cursor-pointer hover:bg-purple-50 transition-colors shrink-0"
-              >
-                <Upload
-                  size={18}
-                  className="text-[#4A24AB]"
-                  strokeWidth={1.5}
-                />
-                <input
-                  ref={fileRef}
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                />
+            <div
+              onClick={() => fileRef.current?.click()}
+              className="flex items-center gap-4 cursor-pointer w-fit"
+            >
+              <div className="w-16 h-16 rounded-full border-2 border-dashed border-[#4A24AB] flex items-center justify-center overflow-hidden bg-purple-50 hover:bg-purple-100 transition-colors shrink-0">
+                {avatarSrc ? (
+                  <img
+                    src={avatarSrc}
+                    alt="avatar"
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                ) : (
+                  <Upload
+                    size={18}
+                    className="text-[#4A24AB]"
+                    strokeWidth={1.5}
+                  />
+                )}
               </div>
               <div>
                 <p className="text-sm font-medium text-[#4A24AB]">
-                  Upload a Team&apos;s Profile
+                  Upload a Profile Picture
                 </p>
                 <p className="text-xs text-slate-400 mt-0.5">
-                  Choose a photo to upload as your team profile picture.
+                  Choose a photo to upload as your profile picture.
                 </p>
               </div>
+              <input
+                ref={fileRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleAvatarChange}
+              />
             </div>
           </Section>
-
-          <Divider />
 
           {/* Team Name */}
           <Section title="Team Name" subtitle="Update your team's name.">
@@ -177,8 +190,6 @@ export default function TeamSettingsPage() {
               Update team
             </Button>
           </Section>
-
-          <Divider />
 
           {/* Outbound Phone */}
           <Section
@@ -203,8 +214,6 @@ export default function TeamSettingsPage() {
               Update Outbound Phone Number
             </Button>
           </Section>
-
-          <Divider />
 
           {/* Team Members */}
           <Section
@@ -244,7 +253,7 @@ export default function TeamSettingsPage() {
                     >
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2">
-                          <div className="w-7 h-7 rounded-full bg-[#EDE9FE] text-[#4A24AB] flex items-center justify-center text-[10px] font-bold shrink-0">
+                          <div className="w-7 h-7 rounded-full bg-[#F3F4F6] text-[#030712] flex items-center justify-center text-[10px] font-bold shrink-0">
                             {m.initials}
                           </div>
                           <span className="text-xs font-medium text-slate-800">
@@ -274,7 +283,7 @@ export default function TeamSettingsPage() {
             </div>
           </Section>
 
-          <Divider />
+         
 
           {/* Pending Invites */}
           <Section
@@ -324,7 +333,7 @@ export default function TeamSettingsPage() {
                     >
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2">
-                          <div className="w-7 h-7 rounded-full bg-[#EDE9FE] text-[#4A24AB] flex items-center justify-center text-[10px] font-bold shrink-0">
+                          <div className="w-7 h-7 rounded-full bg-[#F3F4F6] text-[#030712] flex items-center justify-center text-[10px] font-bold shrink-0">
                             {inv.initials}
                           </div>
                           <span className="text-xs text-slate-600">
@@ -356,29 +365,27 @@ export default function TeamSettingsPage() {
             </div>
           </Section>
 
-          <Divider />
-
           {/* Danger Zone */}
           <div className="rounded-lg border border-red-200 bg-red-50 p-5 flex flex-col gap-3">
             <div>
-              <p className="text-sm font-bold text-red-600">
+              <p className="text-sm font-semibold text-[#EF4444]">
                 Danger Zone – These actions cannot be undone, please be careful!
               </p>
-              <p className="text-xs text-red-500 mt-0.5">
+              <p className="text-xs text-[#6B7280] mt-0.5">
                 This section contains actions that are irreversible.
               </p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-red-600 mb-1">
+              <p className="text-sm font-semibold text-[#4A24AB] mb-1">
                 Delete Team
               </p>
-              <p className="text-xs text-slate-500 mb-3">
+              <p className="text-xs text-[#6B7280] mb-3">
                 This action cannot be undone. All data associated with this team
                 will be deleted.
               </p>
               <Button
                 onClick={() => console.log("Delete team")}
-                className="h-9 px-5 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-md"
+                className="h-9 px-5 bg-[#EF4444] text-white text-sm font-semibold rounded-md"
               >
                 Delete Team
               </Button>

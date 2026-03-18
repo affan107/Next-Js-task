@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
-// ── Password Required Modal ───────────────────────────────────────────────────
+// Password Required Modal 
 function PasswordRequiredModal({ open, onClose, onConfirm }) {
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
@@ -64,7 +64,7 @@ function PasswordRequiredModal({ open, onClose, onConfirm }) {
   );
 }
 
-// ── Reusable pieces ───────────────────────────────────────────────────────────
+// Reusable pieces 
 function Section({ title, subtitle, children }) {
   return (
     <div className="flex flex-col gap-4 pb-6 border-b border-slate-100">
@@ -110,7 +110,7 @@ function PasswordInput({ value, onChange, placeholder, hint }) {
   );
 }
 
-// ── Main page ─────────────────────────────────────────────────────────────────
+// Main page
 export default function PersonalSettingsPage() {
   const fileRef = useRef(null);
   const [avatarSrc, setAvatarSrc] = useState(null);
@@ -140,12 +140,12 @@ export default function PersonalSettingsPage() {
           <span className="text-sm font-medium text-gray-700">
             User Settings
           </span>
-          <div className="ml-auto w-72 h-9 flex items-center gap-2 px-3 rounded-lg border border-slate-200 bg-gray-50">
-            <Search size={13} className="text-gray-400 shrink-0" />
+          <div className="ml-auto w-72 h-9 flex items-center gap-2 px-3 rounded-lg border border-[#EBEAFD] bg-white">
+            <Search size={13} className="text-[#4F46E5]" />
             <input
               type="text"
               placeholder="Type a command or search..."
-              className="bg-transparent text-sm placeholder:text-gray-400 outline-none w-full"
+              className="text-sm placeholder:text-slate-400 outline-none w-full"
             />
           </div>
         </div>

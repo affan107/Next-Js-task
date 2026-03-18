@@ -40,7 +40,7 @@ export default function BatchesPage() {
           <BatchesTable
             batches={filtered}
             selectedId={selectedId}
-            compact={!!selectedBatch}
+            compact={false}
             onRowClick={(b) => setSelectedId((prev) => (prev === b.id ? null : b.id))}
           />
         </div>

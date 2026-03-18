@@ -3,13 +3,12 @@
 import { useState, useRef, useEffect } from "react";
 import {
   Maximize2,
-  Copy,
-  ExternalLink,
+  PanelLeftOpen,
+  SquarePen,
   X,
   Search,
   ChevronDown,
   MoreHorizontal,
-  Trash2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,13 +18,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
   AddFromPropertiesModal,
   AddFromExistingListModal,
   UploadOptionModal,
@@ -34,9 +26,7 @@ import {
 } from "./ListModals";
 import { PROPERTY_DROPDOWN_OPTIONS } from "./listsMockData";
 import { ContactStatusBadge } from "../contacts/ContactsTable";
-import { cn } from "@/lib/utils";
 
-// ── Purple label (view mode) ──────────────────────────────────────────────────
 function StatRow({ label, value }) {
   return (
     <div className="flex items-start gap-3">
@@ -48,7 +38,43 @@ function StatRow({ label, value }) {
   );
 }
 
-// ── "New List" dropdown button (top-right of topbar) ─────────────────────────
+function Collapsible({
+  title,
+  defaultOpen = true,
+  children,
+  cardStyle = false,
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+  const inner = (
+    <>
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="flex items-center gap-1.5 w-fit"
+      >
+        <span className="text-xl font-semibold text-slate-700">{title}</span>
+        {open ? (
+          <ChevronDown size={20} className="text-slate-500" />
+        ) : (
+          <ChevronUp size={20} className="text-slate-500" />
+        )}
+      </button>
+      {open && <div className="mt-3">{children}</div>}
+    </>
+  );
+  if (cardStyle) {
+    return (
+      <div className="rounded-lg border border-[#6B3FE8] bg-[#F4F3FF] p-4 flex flex-col gap-0">
+        {inner}
+      </div>
+    );
+  }
+  return (
+    <div className="rounded-lg border border-slate-400 bg-[#F8FAFC] p-4 flex flex-col gap-0">
+      {inner}
+    </div>
+  );
+}
+
 export function NewListDropdown({
   onFromProperty,
   onFromExistingList,
@@ -92,17 +118,8 @@ export function NewListDropdown({
   );
 }
 
-/**
- * ListSummaryPanel
- *
- * Fully driven by `list` prop — zero hardcoded values.
- *
- * Props:
- *  - list: object                — selected list row
- *  - onClose?: () => void
- *  - onSave?: (updated) => void
- */
-export default function ListSummaryPanel({ list, onClose, onSave }) {
+
+export default function ListSummaryPanel({ list, onClose, onSave, onMaximize }) {
   const [editing, setEditing] = useState(false);
   const [form, setForm] = useState(null);
   const [contactSearch, setContactSearch] = useState("");
@@ -149,20 +166,26 @@ export default function ListSummaryPanel({ list, onClose, onSave }) {
   return (
     <>
       <div className="flex flex-col gap-5">
-        {/* ── Header ── */}
         <div className="flex items-start justify-between">
           <div className="flex flex-col gap-0.5">
             <div className="flex items-center gap-2 mb-1">
               <Maximize2
+                onClick={onMaximize}
                 size={13}
-                className="text-slate-400"
+                className="text-slate-800"
                 strokeWidth={1.8}
               />
-              <Copy size={13} className="text-slate-400" strokeWidth={1.8} />
-            </div>
-            <span className="text-xs font-semibold text-[#4A24AB]">
+              <button
+                onClick={onClose}
+                title="Close panel"
+                className="text-slate-800"
+              >
+                <PanelLeftOpen size={13} strokeWidth={1.8} />
+              </button>
+            <span className="text-sm font-semibold text-[#4A24AB]">
               List Summary
             </span>
+            </div>
             <h2 className="text-xl font-bold text-slate-900">{list.name}</h2>
           </div>
 
@@ -188,35 +211,33 @@ export default function ListSummaryPanel({ list, onClose, onSave }) {
               </>
             ) : (
               <>
+                  <Button
+                    onClick={() => setEditing(true)}
+                    className="flex items-center justify-center w-9 h-9 rounded-md border border-slate-200 text-[#4A24AB] bg-white"
+                  >
+                    <SquarePen size={13} strokeWidth={1.8} />
+                  </Button>
                 <Button
                   onClick={() => console.log("Create Batch Call")}
-                  className="h-9 px-4 bg-[#4A24AB] hover:bg-[#3b1d8a] text-white text-sm font-medium rounded-md"
+                  className="h-9 px-4 bg-[#4A24AB] text-white text-sm font-medium rounded-md"
                 >
                   Create Batch Call
                 </Button>
-                <button
-                  onClick={() => setEditing(true)}
-                  className="flex items-center justify-center w-9 h-9 rounded-md border border-slate-200 text-slate-500 hover:bg-slate-50 transition-all"
-                >
-                  <ExternalLink size={13} strokeWidth={1.8} />
-                </button>
               </>
             )}
           </div>
         </div>
 
-        {/* ── Properties field ── */}
         <div className="flex items-start gap-3">
           <span className="text-sm font-medium text-[#4A24AB] w-32 shrink-0 pt-0.5">
             Properties
           </span>
           {editing ? (
             <div className="flex flex-col gap-2 flex-1">
-              {/* Multi-property pills + remove */}
               <div className="relative">
                 <div
                   onClick={() => setPropDropOpen((v) => !v)}
-                  className="flex items-center flex-wrap gap-1.5 min-h-9 px-3 py-1.5 rounded-md border border-[#CBD5E1] cursor-pointer bg-white"
+                  className="flex items-center flex-wrap gap-1.5 w-64 min-h-9 px-3 py-1.5 rounded-md border border-[#4A24AB] cursor-pointer bg-white"
                 >
                   {currentForm.properties.map((p, i) => (
                     <span
@@ -241,7 +262,7 @@ export default function ListSummaryPanel({ list, onClose, onSave }) {
                   />
                 </div>
                 {propDropOpen && (
-                  <div className="absolute top-full left-0 mt-1 w-full bg-white border border-slate-200 rounded-lg shadow-lg z-20 py-1 max-h-40 overflow-y-auto">
+                  <div className="absolute mt-1 bg-white rounded-lg shadow-lg">
                     {PROPERTY_DROPDOWN_OPTIONS.filter(
                       (p) => !currentForm.properties.includes(p),
                     ).map((p) => (
@@ -271,7 +292,6 @@ export default function ListSummaryPanel({ list, onClose, onSave }) {
           )}
         </div>
 
-        {/* ── Meta rows ── */}
         <div className="flex flex-col gap-2.5">
           <StatRow label="Created by" value={list.createdBy} />
           <StatRow label="Created Date" value={list.createdDate} />
@@ -282,9 +302,7 @@ export default function ListSummaryPanel({ list, onClose, onSave }) {
           <StatRow label="Latest Batch" value={list.latestBatch} />
         </div>
 
-        {/* ── Calls / Contacts sub-section ── */}
         <div className="flex flex-col gap-2">
-          {/* Sub-header */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5">
               <span className="text-sm font-semibold text-slate-700">
@@ -292,40 +310,36 @@ export default function ListSummaryPanel({ list, onClose, onSave }) {
               </span>
               <ChevronDown size={14} className="text-slate-500" />
             </div>
-            <div className="flex items-center gap-2">
-              {/* Search */}
-              <div className="flex items-center gap-2 border border-[#CBD5E1] rounded-lg px-2.5 h-8 bg-gray-50 w-44">
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="flex items-center gap-2 border border-[#CBD5E1] rounded-sm px-2.5 h-10 bg-white w-44">
                 <Search size={12} className="text-gray-400 shrink-0" />
                 <input
                   type="text"
                   placeholder="Type a command or search..."
                   value={contactSearch}
                   onChange={(e) => setContactSearch(e.target.value)}
-                  className="bg-transparent text-xs placeholder:text-gray-400 outline-none w-full"
+                  className="bg-transparent text-xs placeholder:text-slate-400 outline-none w-full"
                 />
               </div>
-              {/* Search btn */}
               <Button
                 size="sm"
-                className="h-8 px-3 bg-[#4A24AB] hover:bg-[#3b1d8a] text-white text-xs font-medium rounded-md gap-1.5"
+                className="h-10 px-3 bg-[#4A24AB] text-white text-xs font-medium rounded-sm gap-1.5"
               >
                 <Search size={11} strokeWidth={2.5} />
                 Search
               </Button>
-              {/* Delete Selected */}
               <Button
                 size="sm"
-                variant="outline"
-                className="h-8 px-3 border-red-300 text-red-500 hover:bg-red-50 text-xs font-medium rounded-md gap-1.5"
+                variant="default"
+                className="h-10 px-3 bg-red-500 text-white text-xs font-medium rounded-sm gap-1.5"
               >
                 Delete Selected
               </Button>
-              {/* Add Contact dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
                     size="sm"
-                    className="h-8 px-3 bg-[#4A24AB] hover:bg-[#3b1d8a] text-white text-xs font-medium rounded-md gap-1"
+                    className="h-10 px-3 bg-[#4A24AB] hover:bg-[#3b1d8a] text-white text-xs font-medium rounded-sm gap-1"
                   >
                     Add Contact
                     <ChevronDown size={11} strokeWidth={2} />

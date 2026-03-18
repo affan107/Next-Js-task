@@ -153,7 +153,7 @@ export default function BatchSummaryPanel({
           <button
             onClick={onMaximize}
             title="Close panel"
-            className="text-slate-400 hover:text-slate-700 transition-colors"
+            className="text-slate-800"
           >
             <Maximize2 size={14} strokeWidth={1.8} />
           </button>
@@ -182,7 +182,7 @@ export default function BatchSummaryPanel({
 
       <div className="flex gap-12">
         <div className="flex flex-col gap-2.5 flex-1">
-          <p className="text-sm font-semibold text-slate-500">Batch Summary</p>
+          <p className="text-sm font-semibold text-[#4A24AB]">Batch Summary</p>
           <p className="text-xl font-bold text-slate-900 mb-1">
             {batch.batchSummary}
           </p>

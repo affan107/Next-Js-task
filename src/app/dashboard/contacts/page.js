@@ -43,17 +43,10 @@ function ContactsTopbar({ onSearch, onNewContact }) {
   );
 }
 
-// ── Main page ─────────────────────────────────────────────────────────────────
-/**
- * ContactsPage
- *
- * Row click → sets selectedContact → ContactSummaryPanel renders with that
- * contact's data. key={selectedContact.id} on the panel ensures form state
- * is always reset cleanly when switching rows.
- */
 export default function ContactsPage() {
   const [query, setQuery] = useState("");
   const [selectedContact, setSelectedContact] = useState(null);
+  const [maximized, setMaximized] = useState(false);
 
   const filtered = MOCK_CONTACTS.filter((c) => {
     const q = query.toLowerCase();
@@ -71,7 +64,6 @@ export default function ContactsPage() {
   const handleSave = (updated) => {
     setSelectedContact(updated);
     console.log("Saved contact:", updated);
-    // TODO: PATCH to API
   };
 
   return (
@@ -82,7 +74,7 @@ export default function ContactsPage() {
       />
 
       <div className="flex flex-1 min-h-0">
-        {/* ── Table ── shrinks when panel open */}
+        {!maximized && (
         <div
           className={
             selectedContact
@@ -94,18 +86,19 @@ export default function ContactsPage() {
             contacts={filtered}
             selectedId={selectedContact?.id}
             onRowClick={handleRowClick}
-            compact={!!selectedContact}
+            compact={false}
           />
         </div>
+        )}
 
-        {/* ── Summary Panel — only when a row is selected ── */}
         {selectedContact && (
-          <div className="flex-[0_0_55%] overflow-y-auto">
+          <div className={maximized ? "flex-1 overflow-y-auto" : "flex-[0_0_55%] overflow-y-auto"}>
             <div className="border border-slate-200 rounded-md m-4 p-5">
               <ContactSummaryPanel
-                key={selectedContact.id} // ← clean remount on row change
+                key={selectedContact.id} 
                 contact={selectedContact}
-                onClose={() => setSelectedContact(null)}
+                onMaximize={() => setMaximized((v) => !v)}
+                onClose={() => { setSelectedId(null); setMaximized(false); }}         
                 onSave={handleSave}
               />
             </div>
