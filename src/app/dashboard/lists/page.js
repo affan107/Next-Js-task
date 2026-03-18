@@ -19,7 +19,6 @@ import {
 } from "../../../components/dashboard/lists/ListModals";
 import { MOCK_LISTS } from "../../../components/dashboard/lists/listsMockData";
 
-// ── Property filter options ───────────────────────────────────────────────────
 const PROPERTY_FILTERS = [
   "all",
   "35 Jones St",
@@ -28,7 +27,6 @@ const PROPERTY_FILTERS = [
   "21 Thompson St",
 ];
 
-// ── Topbar ─────────────────────────────────────────────────────────────────────
 function ListsTopbar({
   propertyFilter,
   onPropertyFilter,
@@ -65,7 +63,7 @@ function ListsTopbar({
         <DropdownMenuTrigger asChild>
           <Button
             variant="outline"
-            className="h-10 px-4 text-sm font-medium border border-slate-200 rounded-md gap-1.5 text-slate-700 hover:bg-slate-50"
+            className="h-10 px-4 text-sm font-medium bg-[#F1F5F9] rounded-md gap-1.5 text-slate-700"
           >
             Property: {propertyFilter}
             <ChevronDown size={12} strokeWidth={2} />
@@ -117,17 +115,12 @@ function ListsTopbar({
   );
 }
 
-// ── Main page ─────────────────────────────────────────────────────────────────
-/**
- * ListsPage
- *
- * Clicking a row → opens ListSummaryPanel with data from that row.
- * key={selectedList.id} ensures clean remount on row switch.
- */
 export default function ListsPage() {
   const [query, setQuery] = useState("");
   const [propFilter, setPropFilter] = useState("all");
   const [selectedList, setSelectedList] = useState(null);
+  const [maximized, setMaximized] = useState(false);
+
 
   // New List modals
   const [newFromPropOpen, setNewFromPropOpen] = useState(false);
@@ -165,6 +158,7 @@ export default function ListsPage() {
 
       <div className="flex flex-1 min-h-0">
         {/* Table — 40% when panel open, full width when closed */}
+        {!maximized && (
         <div
           className={
             selectedList
@@ -178,18 +172,20 @@ export default function ListsPage() {
             onRowClick={(list) =>
               setSelectedList((prev) => (prev?.id === list.id ? null : list))
             }
-            compact={!!selectedList}
+            compact={false}
           />
         </div>
+        )}
 
         {/* Summary panel — only when a row is selected */}
         {selectedList && (
-          <div className="flex-[0_0_60%] overflow-y-auto">
+          <div className={maximized ? "flex-1 overflow-y-auto" : "flex-[0_0_60%] overflow-y-auto"}>
             <div className="border border-slate-200 rounded-md m-4 p-5">
               <ListSummaryPanel
-                key={selectedList.id} // ← clean remount on row change
+                key={selectedList.id} 
                 list={selectedList}
-                onClose={() => setSelectedList(null)}
+                onMaximize={() => setMaximized((v) => !v)}
+                onClose={() => {setSelectedList(null); setMaximized(false); }}
                 onSave={(updated) => {
                   setSelectedList(updated);
                   console.log("Saved list:", updated);

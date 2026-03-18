@@ -40,7 +40,7 @@ export default function CallsPage() {
           <CallsTable
             calls={filtered}
             selectedId={selectedId}
-            compact={!!selectedCall}
+            compact={false}
             onRowClick={(c) => setSelectedId((prev) => (prev === c.id ? null : c.id))}
           />
         </div>
@@ -54,7 +54,7 @@ export default function CallsPage() {
                 key={selectedId}      
                 call={selectedCall}
                 onMaximize={() => setMaximized((v) => !v)}
-                onClose={() => setSelectedId(null)}  
+                onClose={() => { setSelectedId(null); setMaximized(false); }}         
               />
             </div>
           </div>

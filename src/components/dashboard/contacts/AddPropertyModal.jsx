@@ -78,8 +78,7 @@ export default function AddPropertyModal({
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="bg-white rounded-2xl shadow-xl w-[820px] max-h-[80vh] flex flex-col overflow-hidden">
-        {/* Header */}
+      <div className="bg-white rounded-2xl shadow-xl w-238 max-h-[80vh] flex flex-col overflow-hidden">
         <div className="px-6 pt-5 pb-4 border-b border-gray-100 shrink-0">
           <h2 className="text-sm font-bold text-[#4A24AB]">Properties</h2>
         </div>
@@ -162,13 +161,12 @@ export default function AddPropertyModal({
           </table>
         </div>
 
-        {/* Footer */}
         <div className="flex items-center justify-end gap-2 px-6 py-4 border-t border-gray-100 shrink-0">
           <Button
             variant="outline"
             size="sm"
             onClick={onClose}
-            className="h-9 px-5 text-sm font-medium border-slate-200 text-slate-600 rounded-md"
+            className="w-30 h-10 px-5 text-sm font-medium rounded-md border border-[#4A24AB] text-[#4A24AB] leading-none"
           >
             Cancel
           </Button>
@@ -176,7 +174,7 @@ export default function AddPropertyModal({
             size="sm"
             onClick={handleAdd}
             disabled={selected.size === 0}
-            className="h-9 px-5 bg-[#4A24AB] hover:bg-[#3b1d8a] text-white text-sm font-semibold rounded-md disabled:opacity-40"
+            className="w-26 h-10 px-5 text-sm font-medium rounded-md bg-[#4A24AB] text-white leading-none"
           >
             Add
           </Button>

@@ -26,7 +26,7 @@ import AddPropertyModal from "./AddPropertyModal";
 import { CONTACT_STATUS_OPTIONS, INTEREST_OPTIONS } from "./contactsMockData";
 import { cn } from "@/lib/utils";
 
-// ── Interest badge ─────────────────────────────────────────────────────────────
+
 const INTEREST_STYLES = {
   Hot: "bg-orange-100 text-orange-600 border-orange-200",
   Warm: "bg-yellow-100 text-yellow-700 border-yellow-200",
@@ -45,8 +45,7 @@ function InterestBadge({ level }) {
     </span>
   );
 }
-
-// ── Collapsible section ───────────────────────────────────────────────────────
+ 
 function Collapsible({
   title,
   defaultOpen = true,
@@ -54,30 +53,36 @@ function Collapsible({
   cardStyle = false,
 }) {
   const [open, setOpen] = useState(defaultOpen);
-  const wrapper = cardStyle
-    ? "rounded-lg border border-[#6B3FE8] bg-[#F4F3FF] p-4"
-    : "rounded-lg border border-slate-200 bg-white p-4";
-  return (
-    <div className={wrapper}>
+  const inner = (
+    <>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1.5 w-full text-left"
+        className="flex items-center gap-1.5 w-fit"
       >
-        <span className="text-sm font-semibold text-slate-700 flex-1">
-          {title}
-        </span>
+        <span className="text-xl font-semibold text-slate-700">{title}</span>
         {open ? (
-          <ChevronDown size={14} className="text-slate-500 shrink-0" />
+          <ChevronDown size={20} className="text-slate-500" />
         ) : (
-          <ChevronUp size={14} className="text-slate-500 shrink-0" />
+          <ChevronUp size={20} className="text-slate-500" />
         )}
       </button>
       {open && <div className="mt-3">{children}</div>}
+    </>
+  );
+  if (cardStyle) {
+    return (
+      <div className="rounded-lg border border-[#6B3FE8] bg-[#F4F3FF] p-4 flex flex-col gap-0">
+        {inner}
+      </div>
+    );
+  }
+  return (
+    <div className="rounded-lg border border-slate-400 bg-[#F8FAFC] p-4 flex flex-col gap-0">
+      {inner}
     </div>
   );
 }
-
-// ── Purple label + value (view mode) ─────────────────────────────────────────
+ 
 function StatRow({ label, value }) {
   return (
     <div className="flex items-start gap-4">
@@ -89,7 +94,6 @@ function StatRow({ label, value }) {
   );
 }
 
-// ── Purple field label (edit mode) ────────────────────────────────────────────
 function FieldLabel({ children }) {
   return (
     <span className="text-sm font-medium text-[#4A24AB] w-32 shrink-0">
@@ -98,7 +102,6 @@ function FieldLabel({ children }) {
   );
 }
 
-// ── Calls status badge ────────────────────────────────────────────────────────
 const CALL_BADGE = {
   Completed: "bg-[#C8FFDC] text-[#15813D]",
   "IN progress": "bg-[#BFE2FF] text-[#2C96F0]",
@@ -117,22 +120,11 @@ function CallBadge({ status }) {
   );
 }
 
-/**
- * ContactSummaryPanel
- *
- * All data sourced from `contact` prop — zero hardcoded values.
- *
- * Props:
- *  - contact: object                 — currently selected contact row
- *  - onClose?: () => void
- *  - onSave?: (updatedContact) => void
- */
-export default function ContactSummaryPanel({ contact, onClose, onSave }) {
+export default function ContactSummaryPanel({ contact, onClose, onSave, onMaximize }) {
   const [editing, setEditing] = useState(false);
   const [addPropOpen, setAddPropOpen] = useState(false);
   const [form, setForm] = useState(null);
 
-  // Always derive form from contact; reset on contact change via key= in parent
   const currentForm = form ?? {
     status: contact.status,
     phone: contact.phone,
@@ -192,15 +184,22 @@ export default function ContactSummaryPanel({ contact, onClose, onSave }) {
           <div className="flex flex-col gap-0.5">
             <div className="flex items-center gap-2 mb-1">
               <Maximize2
+                onClick={onMaximize}
                 size={13}
                 className="text-slate-800"
                 strokeWidth={1.8}
               />
-              <PanelLeftOpen size={13} className="text-slate-800" strokeWidth={1.8} />
-            </div>
-            <span className="text-xs font-semibold text-[#4A24AB]">
+              <button
+                onClick={onClose}
+                title="Close panel"
+                className="text-slate-800"
+              >
+                <PanelLeftOpen size={13} strokeWidth={1.8} />
+              </button>
+            <span className="text-sm font-semibold text-[#4A24AB]">
               Contact Summary
             </span>
+            </div>
             <h2 className="text-xl font-bold text-slate-900">{contact.name}</h2>
           </div>
 
@@ -224,7 +223,7 @@ export default function ContactSummaryPanel({ contact, onClose, onSave }) {
             ) : (
               <button
                 onClick={() => setEditing(true)}
-                className="flex items-center justify-center w-9 h-9 rounded-md border border-slate-200 text-slate-500 hover:bg-slate-50 transition-all"
+                  className="flex items-center justify-center w-9 h-9 rounded-md border text-[#4A24AB]"
               >
                   <SquarePen size={13} strokeWidth={1.8} />
               </button>
@@ -232,17 +231,15 @@ export default function ContactSummaryPanel({ contact, onClose, onSave }) {
           </div>
         </div>
 
-        {/* ── Core fields ── */}
         {editing ? (
           <div className="flex flex-col gap-3">
-            {/* Status */}
             <div className="flex items-center gap-4">
               <FieldLabel>Status</FieldLabel>
               <Select
                 value={currentForm.status}
                 onValueChange={(v) => setField("status", v)}
               >
-                <SelectTrigger className="flex-1 h-9 text-sm rounded-md border-[#CBD5E1]">
+                <SelectTrigger className="w-64 h-9 text-sm rounded-md border-[#CBD5E1]">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -266,7 +263,7 @@ export default function ContactSummaryPanel({ contact, onClose, onSave }) {
                 <Input
                   value={String(currentForm[key] ?? "")}
                   onChange={(e) => setField(key, e.target.value)}
-                  className="flex-1 h-9 text-sm rounded-md border-[#CBD5E1] focus-visible:ring-[#4A24AB]"
+                  className="w-64 h-9 text-sm rounded-md border-[#CBD5E1] focus-visible:ring-[#4A24AB]"
                 />
               </div>
             ))}
@@ -285,15 +282,20 @@ export default function ContactSummaryPanel({ contact, onClose, onSave }) {
           </div>
         )}
 
+        {editing ? (
+            <div> </div>
+        ): (
         <Collapsible title="AI Insights" cardStyle>
           <div className="flex flex-col gap-1">
             {contact.aiInsights.map((line, i) => (
-              <p key={i} className="text-[11px] text-gray-600 leading-relaxed">
+              <p key={i} className="text-xs text-gray-600 leading-relaxed">
                 {line}
               </p>
             ))}
           </div>
         </Collapsible>
+         )
+}
 
         <Collapsible title="Contact Profile">
           {editing ? (
@@ -314,10 +316,10 @@ export default function ContactSummaryPanel({ contact, onClose, onSave }) {
           {editing ? (
             <div className="flex flex-col gap-2">
               <div className="grid grid-cols-[1fr_1fr_auto] gap-2 px-1 pb-1 border-b border-slate-100">
-                <span className="text-xs font-semibold text-[#4A24AB]">
+                <span className="text-sm font-semibold text-[#4A24AB]">
                   Property
                 </span>
-                <span className="text-xs font-semibold text-[#4A24AB]">
+                <span className="text-sm font-semibold text-[#4A24AB]">
                   Interest
                 </span>
                 <span className="w-5" />
@@ -327,7 +329,7 @@ export default function ContactSummaryPanel({ contact, onClose, onSave }) {
                   key={i}
                   className="grid grid-cols-[1fr_1fr_auto] gap-2 items-center"
                 >
-                  <span className="text-sm text-slate-800 truncate">
+                  <span className="text-xs text-[#4A24AB] truncate">
                     {lp.address}
                   </span>
                   <Select
@@ -355,7 +357,7 @@ export default function ContactSummaryPanel({ contact, onClose, onSave }) {
               ))}
               <Button
                 onClick={() => setAddPropOpen(true)}
-                className="w-full h-9 mt-1 bg-[#4A24AB] hover:bg-[#3b1d8a] text-white text-sm font-semibold rounded-lg gap-1.5"
+                className="w-96 h-10 mt-1 bg-[#4A24AB] hover:bg-[#3b1d8a] text-white text-sm font-semibold rounded-lg gap-1.5"
               >
                 <Plus size={13} strokeWidth={2.5} />
                 New Property
@@ -375,6 +377,9 @@ export default function ContactSummaryPanel({ contact, onClose, onSave }) {
           )}
         </Collapsible>
 
+        {editing ? (
+          <div> </div>
+        ) : (
         <Collapsible title="Calls">
           <div className="overflow-x-auto">
             <table className="w-full text-xs border-collapse">
@@ -394,10 +399,10 @@ export default function ContactSummaryPanel({ contact, onClose, onSave }) {
                       key={h}
                       className="px-2 py-2 text-left font-semibold text-slate-500 whitespace-nowrap"
                     >
-                      <div className="flex items-center gap-0.5">
+                      <div className="flex items-center gap-2.5">
                         {h}
                         {h !== "More" && (
-                          <ChevronDown size={9} className="text-slate-400" />
+                          <ChevronDown size={13} className="text-slate-500" />
                         )}
                       </div>
                     </th>
@@ -432,7 +437,7 @@ export default function ContactSummaryPanel({ contact, onClose, onSave }) {
                       <CallBadge status={call.status} />
                     </td>
                     <td className="px-2 py-2">
-                      <button className="text-gray-400 hover:text-gray-700">
+                      <button className="text-slate-800">
                         <MoreHorizontal size={13} />
                       </button>
                     </td>
@@ -442,6 +447,7 @@ export default function ContactSummaryPanel({ contact, onClose, onSave }) {
             </table>
           </div>
         </Collapsible>
+        )}
       </div>
 
       <AddPropertyModal
