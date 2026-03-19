@@ -18,7 +18,6 @@ import {
 import { MOCK_CALLS } from "./callsMockData";
 import { cn } from "@/lib/utils";
 
-// ── Status badge — reuses same colours as PropertyStatusBadge ─────────────────
 const CALL_STATUS_STYLES = {
   Completed: "bg-[#C8FFDC] text-[#15813D]",
   "IN progress": "bg-[#BFE2FF] text-[#2C96F0]",
@@ -41,7 +40,6 @@ export function CallStatusBadge({ status, className }) {
   );
 }
 
-// ── Columns ───────────────────────────────────────────────────────────────────
 const COLUMNS = [
   { key: "contact", label: "Contact", sortable: true },
   { key: "suburb", label: "Suburb", sortable: true },
@@ -75,7 +73,7 @@ function RowActions({ callId, onView, onDelete }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex items-center justify-center w-7 h-7 rounded-md text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition-all">
+        <button className="flex items-center justify-center w-7 h-7 rounded-md text-slate-900">
           <MoreHorizontal size={15} strokeWidth={1.8} />
         </button>
       </DropdownMenuTrigger>
@@ -98,15 +96,6 @@ function RowActions({ callId, onView, onDelete }) {
   );
 }
 
-/**
- * CallsTable
- * Props:
- *  - calls?: array
- *  - selectedId?: number
- *  - onRowClick?: (call) => void
- *  - compact?: boolean        — left panel on detail page (Address/Suburb/Type)
- *  - compactData?: array      — override data for compact mode (address-keyed)
- */
 export default function CallsTable({
   calls = MOCK_CALLS,
   selectedId,

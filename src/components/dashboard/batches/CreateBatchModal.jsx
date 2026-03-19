@@ -4,6 +4,8 @@ import { useState, useRef } from "react";
 import { Upload, MoreHorizontal, ChevronDown, Calendar, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
@@ -34,6 +36,7 @@ function FieldError({ msg }) {
 
 export default function CreateBatchModal({ open, onClose, onSchedule }) {
   const csvRef = useRef(null);
+  const [dateTime, setDateTime] = useState(null);
 
   const [form, setForm] = useState({
     contactList: "",
@@ -223,7 +226,7 @@ export default function CreateBatchModal({ open, onClose, onSchedule }) {
                 onChange={handleCsvUpload}
               />
               <Button
-                variant="outline"
+                variant="default"
                 size="sm"
                 onClick={() => csvRef.current?.click()}
                 className="h-10 px-3 text-white border bg-[#4A24AB] rounded-sm gap-1.5 shrink-0"
@@ -243,7 +246,7 @@ export default function CreateBatchModal({ open, onClose, onSchedule }) {
                     setCsvFileName(null);
                     setCsvContacts([]);
                   }}
-                  className="text-red-400 hover:text-red-600 ml-1"
+                  className="text-red-600 ml-1"
                 >
                   <X size={10} />
                 </button>
@@ -294,6 +297,21 @@ export default function CreateBatchModal({ open, onClose, onSchedule }) {
                 onChange={set("dateTime")}
                 className={`h-9 text-sm text-slate-400 rounded-sm pr-9 ${errors.dateTime ? "border-red-400" : "border-[#CBD5E1]"}`}
               />
+            {/* <div className="relative">
+              <DatePicker
+                selected={dateTime}
+                onChange={(date) => setDateTime(date)}
+                showTimeSelect
+                timeFormat="HH:mm"
+                dateFormat="dd/MM/yyyy HH:mm"
+                placeholderText="Select Date and Time"
+                className="h-9 w-full text-sm rounded-md border border-[#CBD5E1] pl-3 pr-9 placeholder:text-gray-400"
+              />
+              <Calendar
+                size={14}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
+              />
+            </div> */}
             <FieldError msg={errors.dateTime} />
           </div>
           <div>
@@ -377,7 +395,7 @@ export default function CreateBatchModal({ open, onClose, onSchedule }) {
                         {contact.phone}
                       </td>
                       <td className="px-3 py-2.5">
-                        <button className="text-slate-400 hover:text-slate-700">
+                        <button className="text-slate-700">
                           <MoreHorizontal size={14} />
                         </button>
                       </td>
