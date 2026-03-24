@@ -5,6 +5,7 @@ import {
   ChevronDown,
   ChevronUp,
   Maximize2,
+  PanelLeftOpen,
   ExternalLink,
   Volume2,
 } from "lucide-react";
@@ -156,6 +157,13 @@ export default function BatchSummaryPanel({
             className="text-slate-800"
           >
             <Maximize2 size={14} strokeWidth={1.8} />
+          </button>
+          <button
+            onClick={onClose}
+            title="Close panel"
+            className="text-slate-800"
+          >
+            <PanelLeftOpen size={13} strokeWidth={1.8} />
           </button>
           <span className="text-xl font-semibold text-slate-700">
             Batch Summary
