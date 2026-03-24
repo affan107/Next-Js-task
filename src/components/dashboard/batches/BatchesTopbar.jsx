@@ -5,12 +5,6 @@ import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import CreateBatchModal from "./CreateBatchModal";
 
-/**
- * BatchesTopbar
- * Props:
- *  - onSearch?: (query: string) => void
- *  - onSchedule?: (newBatch: object) => void   ← forwarded to CreateBatchModal
- */
 export default function BatchesTopbar({ onSearch, onSchedule }) {
   const [query, setQuery] = useState("");
   const [openModal, setOpenModal] = useState(false);
@@ -21,7 +15,7 @@ export default function BatchesTopbar({ onSearch, onSchedule }) {
   };
 
   return (
-    <div className="ml-auto mb-3 flex items-center gap-3">
+    <div className="w-full flex flex-wrap items-center gap-3">
       <div className="w-100 h-10 border-[#EBEAFD] flex items-center gap-2 px-3 rounded-md border bg-gray-50">
         <Search size={13} className="text-gray-400 shrink-0" />
         <input

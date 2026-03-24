@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { CheckCircle2, CreditCard, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
+import TopbarSlot from "@/components/dashboard/topbar/TopbarSlot";
 
 const PLANS = [
   {
@@ -35,22 +36,20 @@ export default function BillingPage() {
   const [selectedPlan, setSelectedPlan] = useState("free_trial");
   const active = PLANS.find((p) => p.id === selectedPlan) ?? PLANS[0];
 
-  return (
-    <div className="flex flex-col h-full bg-white rounded-xl shadow-sm overflow-hidden">
-      <div className="flex items-center gap-3 px-5 py-3 border border-slate-100 shrink-0">
-        <CreditCard size={14} className="text-[#6B3FE8]" strokeWidth={1.8} />
-        <span className="text-sm font-medium text-slate-700">Billing</span>
-        <div className="ml-auto w-72 h-9 flex items-center gap-2 px-3 rounded-lg border border-slate-200 bg-gray-50">
+  return (   
+    <>  
+      <TopbarSlot>
+        <div className="w-72 h-9 flex items-center gap-2 px-3 rounded-lg border border-slate-200 bg-gray-50">
           <Search size={13} className="text-gray-400 shrink-0" />
           <input
             type="text"
             placeholder="Type a command or search..."
             className="bg-transparent text-sm placeholder:text-gray-400 outline-none w-full"
           />
-        </div>
       </div>
+      </TopbarSlot>
 
-      {/* Content */}
+    <div className="flex flex-col h-full bg-white rounded-xl shadow-sm overflow-hidden">
       <div className="flex-1 overflow-y-auto px-8 py-6">
         <div className="max-w-2xl flex flex-col gap-4">
           <div>
@@ -138,5 +137,6 @@ export default function BillingPage() {
         </div>
       </div>
     </div>
+    </> 
   );
 }

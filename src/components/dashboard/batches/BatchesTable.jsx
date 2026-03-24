@@ -102,14 +102,6 @@ function BatchRowActions({ batchId, onView, onEdit, onDelete }) {
   );
 }
 
-/**
- * BatchesTable
- * Props:
- *  - batches?: array        — defaults to MOCK_BATCHES
- *  - selectedId?: number    — highlight a row (detail left panel)
- *  - onRowClick?: (batch) => void
- *  - compact?: boolean      — narrower version for left panel
- */
 export default function BatchesTable({
   batches = MOCK_BATCHES,
   selectedId,

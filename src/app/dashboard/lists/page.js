@@ -18,6 +18,7 @@ import {
   UploadFileModal,
 } from "../../../components/dashboard/lists/ListModals";
 import { MOCK_LISTS } from "../../../components/dashboard/lists/listsMockData";
+import TopbarSlot from "@/components/dashboard/topbar/TopbarSlot";
 
 const PROPERTY_FILTERS = [
   "all",
@@ -36,14 +37,7 @@ function ListsTopbar({
   const [query, setQuery] = useState("");
 
   return (
-    <div className="ml-auto mb-3 flex items-center gap-3">
-      
-      {/* <div className="flex items-center gap-2 shrink-0">
-        <AlignJustify size={14} className="text-gray-400" strokeWidth={1.8} />
-        <span className="text-sm font-medium text-gray-700">Lists</span>
-      </div> */}
-
-      {/* Search */}
+    <div className="flex flex-wrap w-full items-center gap-3">
       <div className="w-80 h-10 border-[#4A24AB] flex items-center gap-2 px-3 rounded-lg border bg-gray-50">
         <Search size={13} className="text-gray-400 shrink-0" />
         <input
@@ -58,7 +52,6 @@ function ListsTopbar({
         />
       </div>
 
-      {/* Property filter */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
@@ -148,75 +141,79 @@ export default function ListsPage() {
   });
 
   return (
-    <div className="flex flex-col h-full bg-white rounded-xl shadow-sm overflow-hidden">
-      <ListsTopbar
-        propertyFilter={propFilter}
-        onPropertyFilter={setPropFilter}
-        onSearch={setQuery}
-        onNewList={handleNewList}
-      />
+    <>
+      <TopbarSlot>
+        <ListsTopbar
+          propertyFilter={propFilter}
+          onPropertyFilter={setPropFilter}
+          onSearch={setQuery}
+          onNewList={handleNewList}
+        />
+      </TopbarSlot>
 
-      <div className="flex flex-1 min-h-0">
-        {/* Table — 40% when panel open, full width when closed */}
-        {!maximized && (
-        <div
-          className={
-            selectedList
-              ? "flex-[0_0_40%] border-r border-gray-100 overflow-auto"
-              : "flex-1 overflow-auto"
-          }
-        >
-          <ListsTable
-            lists={filtered}
-            selectedId={selectedList?.id}
-            onRowClick={(list) =>
-              setSelectedList((prev) => (prev?.id === list.id ? null : list))
-            }
-            compact={false}
-          />
-        </div>
-        )}
-
-        {/* Summary panel — only when a row is selected */}
-        {selectedList && (
-          <div className={maximized ? "flex-1 overflow-y-auto" : "flex-[0_0_60%] overflow-y-auto"}>
-            <div className="border border-slate-200 rounded-md m-4 p-5">
-              <ListSummaryPanel
-                key={selectedList.id} 
-                list={selectedList}
-                onMaximize={() => setMaximized((v) => !v)}
-                onClose={() => {setSelectedList(null); setMaximized(false); }}
-                onSave={(updated) => {
-                  setSelectedList(updated);
-                  console.log("Saved list:", updated);
-                }}
+      <div className="flex flex-col h-full bg-white rounded-xl shadow-sm overflow-hidden">
+        <div className="flex flex-1 min-h-0">
+          {/* Table — 40% when panel open, full width when closed */}
+          {!maximized && (
+            <div
+              className={
+                selectedList
+                  ? "flex-[0_0_40%] border-r border-gray-100 overflow-auto"
+                  : "flex-1 overflow-auto"
+              }
+            >
+              <ListsTable
+                lists={filtered}
+                selectedId={selectedList?.id}
+                onRowClick={(list) =>
+                  setSelectedList((prev) => (prev?.id === list.id ? null : list))
+                }
+                compact={false}
               />
             </div>
-          </div>
-        )}
-      </div>
+          )}
 
-      {/* Top-level "New List" modals */}
-      <AddFromPropertiesModal
-        open={newFromPropOpen}
-        onClose={() => setNewFromPropOpen(false)}
-        onAdd={(props) => console.log("New list from props:", props)}
-      />
-      <AddFromExistingListModal
-        open={newFromExistingOpen}
-        onClose={() => setNewFromExistingOpen(false)}
-        onAdd={(lists) => console.log("New list from existing:", lists)}
-      />
-      <UploadOptionModal
-        open={uploadOptionOpen}
-        onClose={() => setUploadOptionOpen(false)}
-        onUploadFile={() => setUploadFileOpen(true)}
-      />
-      <UploadFileModal
-        open={uploadFileOpen}
-        onClose={() => setUploadFileOpen(false)}
-        onFileSelected={(f) => console.log("File:", f)}
-      />
-    </div>
+          {/* Summary panel — only when a row is selected */}
+          {selectedList && (
+            <div className={maximized ? "flex-1 overflow-y-auto" : "flex-[0_0_60%] overflow-y-auto"}>
+              <div className="border border-slate-200 rounded-md ml-2 p-5">
+                <ListSummaryPanel
+                  key={selectedList.id}
+                  list={selectedList}
+                  onMaximize={() => setMaximized((v) => !v)}
+                  onClose={() => { setSelectedList(null); setMaximized(false); }}
+                  onSave={(updated) => {
+                    setSelectedList(updated);
+                    console.log("Saved list:", updated);
+                  }}
+                />
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Top-level "New List" modals */}
+        <AddFromPropertiesModal
+          open={newFromPropOpen}
+          onClose={() => setNewFromPropOpen(false)}
+          onAdd={(props) => console.log("New list from props:", props)}
+        />
+        <AddFromExistingListModal
+          open={newFromExistingOpen}
+          onClose={() => setNewFromExistingOpen(false)}
+          onAdd={(lists) => console.log("New list from existing:", lists)}
+        />
+        <UploadOptionModal
+          open={uploadOptionOpen}
+          onClose={() => setUploadOptionOpen(false)}
+          onUploadFile={() => setUploadFileOpen(true)}
+        />
+        <UploadFileModal
+          open={uploadFileOpen}
+          onClose={() => setUploadFileOpen(false)}
+          onFileSelected={(f) => console.log("File:", f)}
+        />
+      </div>
+    </>
   );
 }
