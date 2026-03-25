@@ -20,7 +20,6 @@ import { Button } from "@/components/ui/button";
 import { MOCK_LISTS } from "./listsMockData";
 import { cn } from "@/lib/utils";
 
-// ── Column definitions ────────────────────────────────────────────────────────
 const COLUMNS = [
   { key: "name", label: "List", sortable: true },
   { key: "propertyStr", label: "Property", sortable: true },
@@ -70,14 +69,6 @@ function RowActions({ onView, onDelete }) {
   );
 }
 
-/**
- * ListsTable
- * Props:
- *  - lists?: array
- *  - selectedId?: number
- *  - onRowClick?: (list) => void
- *  - compact?: boolean
- */
 export default function ListsTable({
   lists = MOCK_LISTS,
   selectedId,
@@ -117,7 +108,7 @@ export default function ListsTable({
       <div className="overflow-auto flex-1">
         <table className="min-w-full text-xs border-collapse">
           <thead className="sticky top-0 bg-white z-10">
-            <tr className="border-b border-gray-100">
+            <tr className="border-b border-slate-300">
               {visibleColumns.map((col) => (
                 <th
                   key={col.key}
@@ -154,7 +145,7 @@ export default function ListsTable({
                   key={list.id}
                   onClick={() => onRowClick?.(list)}
                   className={cn(
-                    "border-b border-gray-50 cursor-pointer transition-colors duration-100",
+                    "border-b border-slate-300 cursor-pointer transition-colors duration-100",
                     isSelected
                       ? "bg-[#EBEAFD] border-[#E2E8F0]"
                       : "hover:bg-gray-50",

@@ -25,7 +25,8 @@ function MiniTable({ columns, rows, renderCell }) {
   return (
     <div className="rounded-lg border bg-slate-50 p-4 flex flex-col gap-3 ">
       <CollapsibleSection title="Calls">
-        <table className="w-full text-xs  border-collapse">
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs min-w-150 border-collapse">
           <thead>
             <tr>
               {columns.map((col) => (
@@ -48,7 +49,7 @@ function MiniTable({ columns, rows, renderCell }) {
                 className="border-b border-gray-50 last:border-0 transition-colors"
               >
                 {columns.map((col) => (
-                  <td key={col.key} className="px-3 py-2 text-slate-800">
+                  <td key={col.key} className="px-3 py-2 text-slate-800 whitespace-nowrap">
                     {renderCell(col.key, row)}
                   </td>
                 ))}
@@ -61,6 +62,7 @@ function MiniTable({ columns, rows, renderCell }) {
             ))}
           </tbody>
         </table>
+        </div>
       </CollapsibleSection>
     </div>
   );

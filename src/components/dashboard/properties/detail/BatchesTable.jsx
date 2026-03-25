@@ -25,7 +25,8 @@ function MiniTable({ columns, rows, renderCell }) {
   return (
     <div className="rounded-lg border bg-slate-50 p-4 flex flex-col gap-3 ">
       <CollapsibleSection title="Batches">
-        <table className="w-full text-xs  border-collapse">
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-150 text-xs border-collapse">
           <thead>
             <tr>
               {columns.map((col) => (
@@ -61,6 +62,7 @@ function MiniTable({ columns, rows, renderCell }) {
             ))}
           </tbody>
         </table>
+        </div>
       </CollapsibleSection>
     </div>
   );

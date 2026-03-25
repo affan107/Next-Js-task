@@ -115,7 +115,7 @@ export default function BotsTable({
       <div className="overflow-auto flex-1">
         <table className="min-w-full text-xs border-collapse">
           <thead className="sticky top-0 bg-white z-10">
-            <tr className="border-b border-gray-100">
+            <tr className="border-b border-slate-300">
               {visibleColumns.map((col) => (
                 <th
                   key={col.key}
@@ -152,7 +152,7 @@ export default function BotsTable({
                   key={bot.id}
                   onClick={() => onRowClick?.(bot)}
                   className={cn(
-                    "border-b border-gray-50 cursor-pointer transition-colors duration-100",
+                    "border-b border-slate-300 cursor-pointer transition-colors duration-100",
                     isSelected
                       ? "bg-[#EBEAFD] border-[#E2E8F0]"
                       : "hover:bg-gray-50",
@@ -164,7 +164,7 @@ export default function BotsTable({
                       className={cn(
                         "px-3 py-2.5 text-xs text-slate-800 whitespace-nowrap",
                         col.key === "description" &&
-                          "max-w-[160px] truncate text-slate-500",
+                          "max-w-40 truncate text-slate-500",
                       )}
                     >
                       {bot[col.key] ?? "—"}

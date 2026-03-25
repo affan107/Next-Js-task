@@ -159,7 +159,7 @@ export default function PropertiesTable({
       <div className="overflow-auto flex-1">
         <table className="min-w-full text-xs border-collapse">
           <thead className=" bg-white">
-            <tr className="border-b border-gray-100">
+            <tr className="border-b border-slate-300">
               {visibleColumns.map((col) => (
                 <th
                   key={col.key}
@@ -198,7 +198,7 @@ export default function PropertiesTable({
                   key={property.id}
                   onClick={() => handleRowClick(property)}
                   className={cn(
-                    "border-b border-gray-50 cursor-pointer transition-colors duration-100",
+                    "border-b border-slate-300 cursor-pointer transition-colors duration-100",
                     isSelected
                       ? "bg-[#EBEAFD] border-[#E2E8F0]"
                       : "hover:bg-gray-50",

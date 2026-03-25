@@ -27,7 +27,7 @@ export default function BatchDetailPage() {
     <div className="flex flex-col h-full bg-white rounded-xl shadow-sm overflow-hidden">
       <BatchesTopbar onSchedule={handleSchedule} />
 
-      <div className="flex flex-1 min-h-0 gap-6 px-6">
+      <div className="flex flex-col md:flex-row flex-1 min-h-0 gap-6 px-6">
         {/* Left panel — compact batch list */}
         <div className="flex-[0_0_30%] border-r border-gray-100 flex flex-col overflow-x-auto">
           <BatchesTable

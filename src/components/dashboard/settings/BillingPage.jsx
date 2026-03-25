@@ -39,7 +39,7 @@ export default function BillingPage() {
   return (   
     <>  
       <TopbarSlot>
-        <div className="w-72 h-9 flex items-center gap-2 px-3 rounded-lg border border-slate-200 bg-gray-50">
+        <div className="w-72 h-9 flex items-center gap-2 px-3 rounded-lg border border-slate-200 bg-gray-50 mr-2">
           <Search size={13} className="text-gray-400 shrink-0" />
           <input
             type="text"

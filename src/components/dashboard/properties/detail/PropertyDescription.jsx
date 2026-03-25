@@ -5,7 +5,7 @@ import { SquarePen, ChevronDown, PanelLeftOpen, Maximize2, Minimize2 } from "luc
 export default function PropertyDescription({ property, onEdit, onMaximize, maximized, onClose }) {
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between">
         <div className="flex items-center gap-1.5">
           <button
             onClick={onMaximize}
@@ -41,21 +41,18 @@ export default function PropertyDescription({ property, onEdit, onMaximize, maxi
         </h1>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex flex-wrap items-center gap-4">
         <p className="text-sm font-medium text-[#4A24AB]">Agent</p>
-
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <span className="px-3 py-1 text-sm  text-slate-800 border border-slate-300 rounded-full">
             {property?.agent ?? "John Mcmahon"}
           </span>
-
           <span className="px-3 py-1 text-sm  text-slate-800 border border-slate-300 rounded-full">
             {property?.coAgent ?? "Emily Rose"}
           </span>
         </div>
       </div>
 
-      {/* Description */}
       <div>
         <p className="text-sm font-medium text-[#4A24AB] mb-0.5">Description</p>
         <p className="text-sm font-normal text-slate-900 ">

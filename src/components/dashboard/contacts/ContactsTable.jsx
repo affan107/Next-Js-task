@@ -134,7 +134,7 @@ export default function ContactsTable({
       <div className="overflow-auto flex-1">
         <table className="min-w-full text-xs border-collapse">
           <thead className="sticky top-0 bg-white z-10">
-            <tr className="border-b border-gray-100">
+            <tr className="border-b border-slate-300">
               {/* Checkbox col — full table only */}
               {!compact && (
                 <th className="w-8 px-3 py-2.5">
@@ -181,7 +181,7 @@ export default function ContactsTable({
                   key={contact.id}
                   onClick={() => onRowClick?.(contact)}
                   className={cn(
-                    "border-b border-gray-50 cursor-pointer transition-colors duration-100",
+                    "border-b border-slate-300 cursor-pointer transition-colors duration-100",
                     isSelected
                       ? "bg-[#EBEAFD] border-[#E2E8F0]"
                       : "hover:bg-gray-50",

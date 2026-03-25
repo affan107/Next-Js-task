@@ -24,7 +24,7 @@ import { SquarePen } from "lucide-react";
 function StatRow({ label, value }) {
   return (
     <div className="flex items-start gap-4">
-      <span className="text-sm font-medium text-[#4A24AB] w-28 shrink-0">
+      <span className="text-sm font-medium text-[#4A24AB] w-28 sm:w-32 md:w-36 shrink-0">
         {label}
       </span>
       <span className="text-sm text-slate-800">{value ?? "—"}</span>
@@ -74,7 +74,7 @@ export default function BotSummaryPanel({ bot, onClose, onSave, onMaximize }) {
   return (
     <>
       <div className="flex flex-col h-full">
-        <div className="flex items-start justify-between mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 gap-3">
           <div className="flex flex-col gap-0.5">
             <span className="text-sm font-semibold text-[#4A24AB]">
               Bot Summary
@@ -99,7 +99,7 @@ export default function BotSummaryPanel({ bot, onClose, onSave, onMaximize }) {
             </h2>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-2">
             {editing ? (
               <>
                 <Button
@@ -140,8 +140,7 @@ export default function BotSummaryPanel({ bot, onClose, onSave, onMaximize }) {
         {/* ── Body ── */}
         <div className="flex-1 overflow-y-auto flex flex-col gap-4">
           {editing ? (
-            <div className="grid grid-cols-[140px_1fr] gap-y-2 items-center over">
-              <FieldLabel>Bot Name</FieldLabel>
+            <div className="grid grid-cols-1 sm:grid-cols-[140px_1fr] gap-y-2 gap-x-4 items-center">              <FieldLabel>Bot Name</FieldLabel>
               <Input
                 value={currentForm.name}
                 onChange={(e) => setField("name", e.target.value)}
