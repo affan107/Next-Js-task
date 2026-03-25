@@ -57,7 +57,7 @@ const navSections = [
 
 // Sub-items shown when Settings is expanded
 const SETTINGS_SUB_NAV = [
-  { href: "/dashboard/settings/personal", icon: UserCircle, label: "Personal Settings" },
+  { href: "/dashboard/settings/personal", icon: UserCircle, label: "User Settings" },
   { href: "/dashboard/settings/team", icon: Users, label: "Team Settings" },
   { href: "/dashboard/settings/members", icon: UserCog, label: "Members" },
   { href: "/dashboard/settings/billing", icon: CreditCard, label: "Billing" },
@@ -128,12 +128,11 @@ export default function Sidebar() {
         expanded ? "w-64" : "w-20",
       )}>
 
-        {/* ── Logo + toggle ── */}
         <div className={cn("flex items-center justify-between px-3 pt-4 pb-2", !expanded && "flex-col gap-2 items-center")}>
           <Link href="/dashboard" className="flex items-center gap-0.5 select-none shrink-0">
             {expanded ? (
               <>
-                <span className="text-xl font-bold bg-gradient-to-r from-[#240EB3] to-[#24A5ED] bg-clip-text text-transparent leading-none">vox</span>
+                <span className="text-xl font-bold bg-linear-to-r from-[#240EB3] to-[#24A5ED] bg-clip-text text-transparent leading-none">vox</span>
                 <span className="text-xl font-normal text-[#9B9B9B] leading-none">works</span>
               </>
             ) : (

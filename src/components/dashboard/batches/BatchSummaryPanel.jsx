@@ -13,7 +13,6 @@ import { Button } from "@/components/ui/button";
 import { BatchStatusBadge } from "./BatchesTable";
 import { MOCK_BATCH_DETAIL } from "./batchMockData";
 
-// ── Stat row: purple label + value ────────────────────────────────────────────
 function StatRow({ label, value }) {
   return (
     <div className="flex items-center gap-3">
@@ -25,7 +24,6 @@ function StatRow({ label, value }) {
   );
 }
 
-// ── AI Insights card — same style as AIInsightsCard in properties ─────────────
 function AIInsightsSection({ insights }) {
   const [open, setOpen] = useState(true);
   return (

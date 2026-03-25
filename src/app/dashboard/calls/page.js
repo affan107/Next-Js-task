@@ -5,6 +5,7 @@ import CallsTopbar from "../../../components/dashboard/calls/CallsTopbar";
 import CallsTable from "../../../components/dashboard/calls/CallsTable";
 import CallDetailPanel from "../../../components/dashboard/calls/CallDetailPanel";
 import { MOCK_CALLS } from "../../../components/dashboard/calls/callsMockData";
+import TopbarSlot from "@/components/dashboard/topbar/TopbarSlot";
 
 export default function CallsPage() {
   const [calls, setCalls]         = useState(MOCK_CALLS);
@@ -27,11 +28,13 @@ export default function CallsPage() {
  
   return (
     <div className="flex flex-col h-full bg-white rounded-xl shadow-sm overflow-hidden">
+      <TopbarSlot>
       <CallsTopbar
         onSearch={setQuery}
         onDownloadCSV={() => console.log("Download CSV")}
         onLogCall={() => console.log("Log a Call")}
       />
+      </TopbarSlot>
  
       <div className="flex flex-1 min-h-0">
         {/* Table — shrinks when panel open */}
@@ -49,7 +52,7 @@ export default function CallsPage() {
         {/* Detail panel — only when a call is selected */}
         {selectedCall && (
           <div className={maximized ? "flex-1 overflow-y-auto" : "flex-[0_0_60%] overflow-y-auto"}>
-            <div className="border border-slate-200 rounded-md m-4 p-5">
+            <div className="border border-slate-200 rounded-md ml-2 p-5">
               <CallDetailPanel
                 key={selectedId}      
                 call={selectedCall}

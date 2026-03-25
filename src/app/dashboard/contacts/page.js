@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import ContactsTable from "../../../components/dashboard/contacts/ContactsTable";
 import ContactSummaryPanel from "../../../components/dashboard/contacts/ContactSummaryPanel";
 import { MOCK_CONTACTS } from "../../../components/dashboard/contacts/contactsMockData";
+import TopbarSlot from "@/components/dashboard/topbar/TopbarSlot";
 
 function ContactsTopbar({ onSearch, onNewContact }) {
   const [query, setQuery] = useState("");
@@ -16,12 +17,7 @@ function ContactsTopbar({ onSearch, onNewContact }) {
   };
 
   return (
-    <div className="ml-auto mb-3 flex items-center gap-3 mr-2">
-      {/* <div className="flex items-center gap-2 shrink-0">
-        <AlignJustify size={14} className="text-gray-400" strokeWidth={1.8} />
-        <span className="text-sm font-medium text-gray-700">Contacts</span>
-      </div> */}
-
+    <div className="flex flex-wrap w-full items-center gap-3 mr-2">
       <div className="w-100 h-10 border-[#EBEAFD] flex items-center gap-2 px-3 rounded-lg border bg-gray-50">
         <Search size={13} className="text-gray-400 shrink-0" />
         <input
@@ -67,11 +63,13 @@ export default function ContactsPage() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-white rounded-xl shadow-sm overflow-hidden">
+    <>
+    <TopbarSlot>
       <ContactsTopbar
         onSearch={setQuery}
         onNewContact={() => console.log("New contact")}
       />
+      </TopbarSlot>
 
       <div className="flex flex-1 min-h-0">
         {!maximized && (
@@ -93,18 +91,19 @@ export default function ContactsPage() {
 
         {selectedContact && (
           <div className={maximized ? "flex-1 overflow-y-auto" : "flex-[0_0_55%] overflow-y-auto"}>
-            <div className="border border-slate-200 rounded-md m-4 p-5">
+            <div className="border border-slate-200 rounded-md ml-2 p-5">
               <ContactSummaryPanel
                 key={selectedContact.id} 
                 contact={selectedContact}
                 onMaximize={() => setMaximized((v) => !v)}
-                onClose={() => { setSelectedId(null); setMaximized(false); }}         
+                onClose={() => { setSelectedContact(null); setMaximized(false); }}         
                 onSave={handleSave}
               />
             </div>
           </div>
         )}
       </div>
-    </div>
+    
+    </>
   );
 }

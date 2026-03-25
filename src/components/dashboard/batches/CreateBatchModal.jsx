@@ -171,7 +171,7 @@ export default function CreateBatchModal({ open, onClose, onSchedule }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-[4px]"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-[2px]"
       onClick={(e) => {
         if (e.target === e.currentTarget) handleClose();
       }}
@@ -183,7 +183,7 @@ export default function CreateBatchModal({ open, onClose, onSchedule }) {
             <Button
               variant="default"
               size="sm"
-              className="h-10 px-4 text-sm font-medium border-[#4A24AB] border-[2px] bg-white text-[#4A24AB] rounded-sm"
+              className="h-10 px-4 text-sm font-medium border-[#4A24AB] border-2 bg-white text-[#4A24AB] rounded-sm"
             >
               Test Call
             </Button>

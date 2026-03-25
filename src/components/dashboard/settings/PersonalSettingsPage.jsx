@@ -5,6 +5,7 @@ import { Shield, Upload, Eye, EyeOff, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import TopbarSlot from "@/components/dashboard/topbar/TopbarSlot";
 
 // Password Required Modal 
 function PasswordRequiredModal({ open, onClose, onConfirm }) {
@@ -134,26 +135,19 @@ export default function PersonalSettingsPage() {
 
   return (
     <>
-      <div className="flex flex-col h-full bg-white rounded-xl shadow-sm overflow-hidden">
-        {/* Topbar */}
-        <div className="flex items-center gap-3 px-5 py-3 border-b border-gray-100 shrink-0">
-          <span className="text-sm font-medium text-gray-700">
-            User Settings
-          </span>
-          <div className="ml-auto w-72 h-9 flex items-center gap-2 px-3 rounded-lg border border-[#EBEAFD] bg-white">
-            <Search size={13} className="text-[#4F46E5]" />
-            <input
-              type="text"
-              placeholder="Type a command or search..."
-              className="text-sm placeholder:text-slate-400 outline-none w-full"
-            />
-          </div>
-        </div>
+        <TopbarSlot>
+            <div className="ml-auto w-72 h-9 flex items-center gap-2 px-3 rounded-lg border border-[#EBEAFD] bg-white">
+              <Search size={13} className="text-[#4F46E5]" />
+              <input
+                type="text"
+                placeholder="Type a command or search..."
+                className="text-sm placeholder:text-slate-400 outline-none w-full"
+              />
+            </div>
+        </TopbarSlot>
 
-        {/* Scrollable content */}
         <div className="flex-1 overflow-y-auto px-8 py-6">
           <div className="max-w-xl flex flex-col gap-6">
-            {/* Profile Picture */}
             <Section
               title="Your Profile Picture"
               subtitle="Please choose a photo to upload as your profile picture."
@@ -349,7 +343,7 @@ export default function PersonalSettingsPage() {
             </div>
           </div>
         </div>
-      </div>
+    
 
       {/* Password confirm modal */}
       <PasswordRequiredModal

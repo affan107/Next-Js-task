@@ -49,7 +49,7 @@ export default function PropertyDescriptionForm({
           <button
             onClick={onMaximize}
             title={maximized ? "Restore" : "Maximize"}
-            className="text-slate-400 hover:text-slate-700 transition-colors"
+            
           >
             {maximized
               ? <Minimize2 size={14} strokeWidth={1.8} />

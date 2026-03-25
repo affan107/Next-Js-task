@@ -5,13 +5,9 @@ import BotsTopbar from "../../../components/dashboard/bots/BotsTopbar";
 import BotsTable from "../../../components/dashboard/bots/BotsTable";
 import BotSummaryPanel from "../../../components/dashboard/bots/BotSummaryPanel";
 import { MOCK_BOTS } from "../../../components/dashboard/bots/botsMockData";
+import TopbarSlot from "@/components/dashboard/topbar/TopbarSlot";
 
-/**
- * BotsPage
- *
- * Clicking any row opens the BotSummaryPanel on the right with data
- * sourced entirely from that row — no hardcoded summary values.
- */
+
 export default function BotsPage() {
   const [query, setQuery] = useState("");
   const [selectedBot, setSelectedBot] = useState(null);
@@ -40,37 +36,39 @@ export default function BotsPage() {
 
   return (
     <div className="flex flex-col h-full bg-white rounded-xl shadow-sm overflow-hidden">
-      <BotsTopbar onSearch={setQuery} />
+      <TopbarSlot>
+        <BotsTopbar onSearch={setQuery} />
+      </TopbarSlot>
 
       <div className="flex flex-1 min-h-0">
         {/* Table — shrinks when panel is open */}
         {!maximized && (
-        <div
-          className={
-            selectedBot
-              ? "flex-[0_0_60%] border-r border-gray-100 overflow-auto"
-              : "flex-1 overflow-auto"
-          }
-        >
-          <BotsTable
-            bots={filtered}
-            selectedId={selectedBot?.id}
-            onRowClick={handleRowClick}
-            onEdit={(bot) => {
-              setSelectedBot(bot);
-            }}
-          />
-        </div>
+          <div
+            className={
+              selectedBot
+                ? "flex-[0_0_60%] border-r border-gray-100 overflow-auto"
+                : "flex-1 overflow-auto"
+            }
+          >
+            <BotsTable
+              bots={filtered}
+              selectedId={selectedBot?.id}
+              onRowClick={handleRowClick}
+              onEdit={(bot) => {
+                setSelectedBot(bot);
+              }}
+            />
+          </div>
         )}
 
         {/* Summary / Edit panel — only shown when a row is selected */}
         {selectedBot && (
-          <div className={maximized? "flex-1 overflow-y-auto": "flex-[0_0_40%] overflow-y-auto"}>
-            <div className="border border-slate-200 rounded-md m-4 p-5">
+          <div className={maximized ? "flex-1 overflow-y-auto" : "flex-[0_0_40%] overflow-y-auto"}>
+            <div className="border border-slate-200 rounded-md ml-2 p-5">
               <BotSummaryPanel
-                key={selectedBot.id} // re-mounts cleanly on row change
+                key={selectedBot.id} 
                 bot={selectedBot}
-                onClose={() => setSelectedBot(null)}
+                onClose={() => { setSelectedBot(null); setMaximized(false); }}
                 onMaximize={() => setMaximized((v) => !v)}
                 onSave={handleSave}
               />

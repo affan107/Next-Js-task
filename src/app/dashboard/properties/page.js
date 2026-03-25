@@ -5,6 +5,7 @@ import PropertiesTopbar from "../../../components/dashboard/properties/Propertie
 import PropertiesTable, {
   MOCK_PROPERTIES,
 } from "../../../components/dashboard/properties/PropertiesTable";
+import TopbarSlot from "@/components/dashboard/topbar/TopbarSlot";
 
 export default function PropertiesPage() {
   const [query, setQuery] = useState("");
@@ -19,12 +20,16 @@ export default function PropertiesPage() {
   });
 
   return (
-    <div className="flex flex-col h-full bg-white rounded-xl shadow-sm overflow-hidden">
-      <PropertiesTopbar
-        onSearch={setQuery}
-        onNewProperty={() => console.log("new property")}
-      />
-      <PropertiesTable properties={filtered} />
-    </div>
+    <>
+      <TopbarSlot>
+        <PropertiesTopbar
+          onSearch={setQuery}
+          onNewProperty={() => console.log("new property")}
+        />
+      </TopbarSlot>
+      <div className="flex flex-col h-full bg-white rounded-xl shadow-sm overflow-hidden">
+        <PropertiesTable properties={filtered} />
+      </div>
+    </>
   );
 }
