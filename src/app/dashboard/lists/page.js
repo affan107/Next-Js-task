@@ -152,7 +152,7 @@ export default function ListsPage() {
       </TopbarSlot>
 
       <div className="flex flex-col h-full bg-white rounded-xl shadow-sm overflow-hidden">
-        <div className="flex flex-1 min-h-0">
+        <div className="flex flex-1 flex-col md:flex-row md:gap-4 lg:gap-0 min-h-0">
           {/* Table — 40% when panel open, full width when closed */}
           {!maximized && (
             <div
@@ -176,7 +176,7 @@ export default function ListsPage() {
           {/* Summary panel — only when a row is selected */}
           {selectedList && (
             <div className={maximized ? "flex-1 overflow-y-auto" : "flex-[0_0_60%] overflow-y-auto"}>
-              <div className="border border-slate-200 rounded-md ml-2 p-5">
+              <div className="border border-slate-200 rounded-md lg:ml-2 p-5">
                 <ListSummaryPanel
                   key={selectedList.id}
                   list={selectedList}

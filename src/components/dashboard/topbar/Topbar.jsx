@@ -74,7 +74,7 @@ export default function Topbar() {
   const { topbarContent } = useTopbar();
 
   return (
-    <header className="flex flex-wrap items-center gap-2 px-4 py-2 bg-white ">
+    <header className="flex flex-wrap items-center gap-2 px-4 py-2 bg-white border border-slate-200">
       <ActiveTabHeading pathname={pathname} />
 
       {topbarContent && (

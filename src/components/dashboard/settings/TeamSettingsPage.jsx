@@ -114,7 +114,7 @@ export default function TeamSettingsPage() {
   return (
     <>
       <TopbarSlot>
-        <div className="ml-auto w-72 h-9 flex items-center gap-2 px-3 rounded-lg border border-[#EBEAFD] bg-white">
+        <div className="ml-auto w-72 h-9 flex items-center gap-2 px-3 rounded-lg border border-[#EBEAFD] bg-white mr-2">
           <Search size={13} className="text-[#4F46E5]" />
           <input
             type="text"

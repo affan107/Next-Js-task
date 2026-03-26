@@ -38,7 +38,7 @@ export default function BatchesPage() {
       </TopbarSlot>
 
       <div className="flex flex-col h-full bg-white rounded-xl shadow-sm overflow-hidden">
-        <div className="flex flex-1 min-h-0">
+        <div className="flex flex-col md:flex-row gap-4 lg:gap-0 flex-1 min-h-0">
           {!maximized && (
             <div className={`${selectedBatch ? "flex-[0_0_40%]" : "flex-1"} border-r border-gray-100 overflow-auto`}>
               <BatchesTable
@@ -52,7 +52,7 @@ export default function BatchesPage() {
 
           {selectedBatch && (
             <div className={maximized ? "flex-1 overflow-y-auto" : "flex-[0_0_60%] overflow-y-auto"}>
-              <div className="border border-slate-200 rounded-md ml-2 p-5">
+              <div className="border border-slate-200 rounded-md lg:ml-2 p-5">
                 <BatchSummaryPanel
                   key={selectedId}
                   batch={selectedBatch}

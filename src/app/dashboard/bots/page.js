@@ -40,7 +40,7 @@ export default function BotsPage() {
         <BotsTopbar onSearch={setQuery} />
       </TopbarSlot>
 
-      <div className="flex flex-1 min-h-0">
+      <div className="flex flex-col md:flex-row gap-4 lg:gap-0 flex-1 min-h-0">
         {/* Table — shrinks when panel is open */}
         {!maximized && (
           <div
@@ -64,7 +64,7 @@ export default function BotsPage() {
         {/* Summary / Edit panel — only shown when a row is selected */}
         {selectedBot && (
           <div className={maximized ? "flex-1 overflow-y-auto" : "flex-[0_0_40%] overflow-y-auto"}>
-            <div className="border border-slate-200 rounded-md ml-2 p-5">
+            <div className="border border-slate-200 rounded-md lg:ml-2 p-5">
               <BotSummaryPanel
                 key={selectedBot.id} 
                 bot={selectedBot}

@@ -23,12 +23,12 @@ export default function CampaignInfo({ property, onCreateCampaign }) {
 
   return (
     <>
-      <div className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
+      <div className="flex flex-wrap flex-col gap-3">
+        <div className="flex flex-wrap items-center justify-between">
           <h3 className="text-xl font-semibold text-slate-700">
             Campaign Info
           </h3>
-          <div className="flex items-center gap-1.5">
+          <div className="flex flex-wrap items-center gap-1.5">
             <Button
               onClick={() => setShowNew(true)}
               size="sm"
@@ -47,10 +47,10 @@ export default function CampaignInfo({ property, onCreateCampaign }) {
           </div>
         </div>
 
-        <div className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-2.5 items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-x-6 gap-y-2.5 items-center">
           <span className="text-sm text-[#4A24AB] font-medium">Campaign</span>
           <Select value={campaign} onValueChange={setCampaign}>
-            <SelectTrigger className="h-8 w-45 text-sm font-normal border-[#CBD5E1] rounded">
+            <SelectTrigger className="h-8 w-full sm:w-45 text-sm font-normal border-[#CBD5E1] rounded">
               <SelectValue />
             </SelectTrigger>
             <SelectContent className="rounded-lg border border-gray-200 shadow-md p-1">
@@ -66,10 +66,7 @@ export default function CampaignInfo({ property, onCreateCampaign }) {
             </SelectContent>
           </Select>
           <span className="text-sm text-[#4A24AB] font-medium">Status</span>
-          <PropertyStatusBadge
-            className={"w-36 h-6"}
-            status={property?.status ?? "Live"}
-          />
+          <PropertyStatusBadge className="w-full sm:w-36 h-6" status={property?.status ?? "Live"} />
           <span className="text-sm text-[#4A24AB] font-medium">Link</span>
           <a
             href={property?.link ?? "#"}
@@ -79,16 +76,13 @@ export default function CampaignInfo({ property, onCreateCampaign }) {
           >
             URL
           </a>
-          <span className="text-sm text-[#4A24AB] font-medium">
-            Price guide
-          </span>
+          <span className="text-sm text-[#4A24AB] font-medium">Price guide</span>
           <span className="text-sm text-slate-800 font-normal">
             {property?.priceGuide ?? "AUD 1,000,000 – 2,000,000"}
           </span>
         </div>
       </div>
 
-      {/* Modals */}
       <EditCampaignModal
         open={showEdit}
         onClose={() => setShowEdit(false)}

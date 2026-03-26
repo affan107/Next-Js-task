@@ -57,7 +57,7 @@ function Collapsible({
     <>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1.5 w-fit"
+        className="flex flex-wrap items-center gap-1.5 w-fit"
       >
         <span className="text-xl font-semibold text-slate-700">{title}</span>
         {open ? (
@@ -85,7 +85,7 @@ function Collapsible({
  
 function StatRow({ label, value }) {
   return (
-    <div className="flex items-start gap-4">
+    <div className="flex flex-wrap items-start gap-4">
       <span className="text-sm font-medium text-[#4A24AB] w-32 shrink-0">
         {label}
       </span>
@@ -180,8 +180,11 @@ export default function ContactSummaryPanel({ contact, onClose, onSave, onMaximi
   return (
     <>
       <div className="flex flex-col gap-5">
-        <div className="flex items-start justify-between">
+        <div className="flex flex-wrap items-start justify-between">
           <div className="flex flex-col gap-0.5">
+            <span className="text-sm font-semibold text-[#4A24AB]">
+              Contact Summary
+            </span>
             <div className="flex items-center gap-2 mb-1">
               <Maximize2
                 onClick={onMaximize}
@@ -196,11 +199,8 @@ export default function ContactSummaryPanel({ contact, onClose, onSave, onMaximi
               >
                 <PanelLeftOpen size={13} strokeWidth={1.8} />
               </button>
-            <span className="text-sm font-semibold text-[#4A24AB]">
-              Contact Summary
-            </span>
             </div>
-            <h2 className="text-xl font-bold text-slate-900">{contact.name}</h2>
+            <h2 className="text-xl text-wrap font-bold text-slate-900">{contact.name}</h2>
           </div>
 
           <div className="flex items-center gap-2">
@@ -315,7 +315,7 @@ export default function ContactSummaryPanel({ contact, onClose, onSave, onMaximi
         <Collapsible title="Properties">
           {editing ? (
             <div className="flex flex-col gap-2">
-              <div className="grid grid-cols-[1fr_1fr_auto] gap-2 px-1 pb-1 border-b border-slate-100">
+              <div className="grid grid-cols-[minmax(120px,1fr)_minmax(140px,1fr)_auto] gap-2 px-1 pb-1 border-b border-slate-100">
                 <span className="text-sm font-semibold text-[#4A24AB]">
                   Property
                 </span>
@@ -327,9 +327,9 @@ export default function ContactSummaryPanel({ contact, onClose, onSave, onMaximi
               {currentForm.linkedProperties.map((lp, i) => (
                 <div
                   key={i}
-                  className="grid grid-cols-[1fr_1fr_auto] gap-2 items-center"
+                  className="grid grid-cols-[minmax(120px,1fr)_minmax(140px,1fr)_auto] gap-2 items-center"
                 >
-                  <span className="text-xs text-[#4A24AB] truncate">
+                  <span className="text-xs text-[#4A24AB] truncate leading-8">
                     {lp.address}
                   </span>
                   <Select
@@ -347,17 +347,12 @@ export default function ContactSummaryPanel({ contact, onClose, onSave, onMaximi
                       ))}
                     </SelectContent>
                   </Select>
-                  <button
-                    onClick={() => removeProperty(i)}
-                    className="text-gray-300 hover:text-red-400 transition-colors"
-                  >
-                    <X size={13} />
-                  </button>
+                 
                 </div>
               ))}
               <Button
                 onClick={() => setAddPropOpen(true)}
-                className="w-96 h-10 mt-1 bg-[#4A24AB] hover:bg-[#3b1d8a] text-white text-sm font-semibold rounded-lg gap-1.5"
+                className="w-full sm:w-auto self-start h-10 mt-2 bg-[#4A24AB] text-white text-sm font-semibold rounded-lg gap-1.5"
               >
                 <Plus size={13} strokeWidth={2.5} />
                 New Property

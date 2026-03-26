@@ -25,7 +25,7 @@ export default function CallDetailPage() {
         onLogCall={() => console.log("Log a Call")}
       />
 
-      <div className="flex flex-1 min-h-0 gap-6 px-6">
+      <div className="flex flex-1 min-h-0 md:flex-row gap-6 px-6">
         {/* Left panel — compact calls list */}
         <div
           className={`${selectedCall ? "flex-[0_0_30%]" : "flex-1"} border-r border-gray-100 flex flex-col overflow-x-auto`}
